@@ -1,4 +1,4 @@
-package net.mieczkowski.yelpbusinessexample;
+package net.mieczkowski.yelpbusinessexample.tools;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

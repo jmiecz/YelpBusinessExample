@@ -1,4 +1,4 @@
-package net.mieczkowski.yelpbusinessexample.networkInterfaces;
+package net.mieczkowski.yelpbusinessexample.interfaces.network;
 
 /**
  * Created by Josh Mieczkowski on 10/19/2017.

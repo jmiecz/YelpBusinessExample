@@ -12,7 +12,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 public class PrimaryKeyModel extends BaseModel implements Parcelable {
 
-    @PrimaryKey
+    @PrimaryKey(autoincrement = true)
     public long id;
 
     public PrimaryKeyModel() {
@@ -32,4 +32,15 @@ public class PrimaryKeyModel extends BaseModel implements Parcelable {
         this.id = in.readLong();
     }
 
+    public static final Creator<PrimaryKeyModel> CREATOR = new Creator<PrimaryKeyModel>() {
+        @Override
+        public PrimaryKeyModel createFromParcel(Parcel source) {
+            return new PrimaryKeyModel(source);
+        }
+
+        @Override
+        public PrimaryKeyModel[] newArray(int size) {
+            return new PrimaryKeyModel[size];
+        }
+    };
 }

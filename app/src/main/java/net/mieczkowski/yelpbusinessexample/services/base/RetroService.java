@@ -106,7 +106,7 @@ public class RetroService<I> {
     private void addToRequestBuilder(Request.Builder builder) {
         YelpAuth yelpAuth = new YelpAuthService().getCacheYelpAuth();
 
-        if(yelpAuth != null) {
+        if (yelpAuth != null) {
             builder.header("Authorization", "Bearer " + yelpAuth.getAccessToken());
         }
     }

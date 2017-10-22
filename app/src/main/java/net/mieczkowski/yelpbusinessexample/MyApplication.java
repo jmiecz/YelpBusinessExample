@@ -5,6 +5,8 @@ import android.app.Application;
 import com.facebook.stetho.Stetho;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
+import net.mieczkowski.yelpbusinessexample.tools.ServiceChecker;
+
 /**
  * Created by Josh Mieczkowski on 10/19/2017.
  */

@@ -8,10 +8,7 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import net.mieczkowski.yelpbusinessexample.database.MyDatabase;
 import net.mieczkowski.yelpbusinessexample.database.PrimaryKeyModel;
-import net.mieczkowski.yelpbusinessexample.models.business.YelpBusiness;
-import net.mieczkowski.yelpbusinessexample.models.business.YelpBusiness_Table;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,15 +20,19 @@ public class PreviousSearch extends PrimaryKeyModel {
 
     private static final int SEARCH_LIMIT = 10;
 
-    public static List<PreviousSearch> getPreviousSearches(){
+    public static List<PreviousSearch> getPreviousSearches() {
         return SQLite.select()
                 .from(PreviousSearch.class)
+                .orderBy(PreviousSearch_Table.id, false)
                 .limit(SEARCH_LIMIT)
                 .queryList();
     }
 
     @Column
     String searchTerm;
+
+    public PreviousSearch() {
+    }
 
     public PreviousSearch(String searchTerm) {
         this.searchTerm = searchTerm;

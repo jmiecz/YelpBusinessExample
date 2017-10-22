@@ -3,12 +3,12 @@ package net.mieczkowski.yelpbusinessexample.services;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import net.mieczkowski.yelpbusinessexample.MyApplication;
+import net.mieczkowski.yelpbusinessexample.interfaces.network.IBusiness;
 import net.mieczkowski.yelpbusinessexample.models.business.BusinessDetails;
 import net.mieczkowski.yelpbusinessexample.models.business.BusinessLookupRequest;
 import net.mieczkowski.yelpbusinessexample.models.business.YelpBusiness;
 import net.mieczkowski.yelpbusinessexample.models.business.YelpBusinessWrapper;
 import net.mieczkowski.yelpbusinessexample.models.business.YelpBusiness_Table;
-import net.mieczkowski.yelpbusinessexample.networkInterfaces.IBusiness;
 import net.mieczkowski.yelpbusinessexample.services.base.BaseService;
 
 import org.reactivestreams.Publisher;

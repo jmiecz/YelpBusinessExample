@@ -25,8 +25,6 @@ public class YelpBusinessLookupServiceTest {
     @Before
     public void setUp() throws Exception {
         yelpBusinessLookupService = new YelpBusinessLookupService(new MockedBusinessLookupData());
-
-
     }
 
     @Test

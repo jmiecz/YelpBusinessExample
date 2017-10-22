@@ -1,6 +1,7 @@
 package net.mieczkowski.yelpbusinessexample.controllers.base;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,12 @@ public abstract class ButterKnifeController extends Controller {
         super(args);
     }
 
-    protected abstract View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container);
+    protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
+        return inflater.inflate(getLayoutID(), container, false);
+    }
+
+    @LayoutRes
+    protected abstract int getLayoutID();
 
     @NonNull
     @Override

@@ -1,14 +1,11 @@
 package net.mieczkowski.yelpbusinessexample.mockedData;
 
 import net.mieczkowski.yelpbusinessexample.models.business.BusinessDetails;
-import net.mieczkowski.yelpbusinessexample.models.business.YelpBusiness;
 import net.mieczkowski.yelpbusinessexample.models.business.YelpBusinessWrapper;
-import net.mieczkowski.yelpbusinessexample.networkInterfaces.IBusiness;
+import net.mieczkowski.yelpbusinessexample.interfaces.network.IBusiness;
 import net.mieczkowski.yelpbusinessexample.services.base.RetroService;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.Single;
 import retrofit2.http.Path;

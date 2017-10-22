@@ -1,6 +1,6 @@
 package net.mieczkowski.yelpbusinessexample.services.base;
 
-import net.mieczkowski.yelpbusinessexample.networkInterfaces.IYelp;
+import net.mieczkowski.yelpbusinessexample.interfaces.network.IYelp;
 
 /**
  * Created by Josh Mieczkowski on 10/19/2017.

@@ -1,23 +1,34 @@
 package net.mieczkowski.yelpbusinessexample;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.Conductor;
+import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 
+import net.mieczkowski.yelpbusinessexample.controllers.LocationController;
 import net.mieczkowski.yelpbusinessexample.controllers.SearchController;
+import net.mieczkowski.yelpbusinessexample.interfaces.IToolbar;
 import net.mieczkowski.yelpbusinessexample.services.YelpAuthService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IToolbar {
 
     @BindView(R.id.controllerContainer)
     ViewGroup controllerContainer;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
 
     private Router router;
 
@@ -27,14 +38,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        router = Conductor.attachRouter(this, controllerContainer, savedInstanceState);
-        if (!router.hasRootController()) {
-            router.setRoot(RouterTransaction.with(new SearchController()));
+        setSupportActionBar(toolbar);
+
+
+        Controller rootController;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            rootController = new LocationController();
+        } else {
+            rootController = new SearchController();
         }
 
-        if(MyApplication.getServiceChecker().isConnected()){
+        router = Conductor.attachRouter(this, controllerContainer, savedInstanceState);
+        if (!router.hasRootController()) {
+            router.setRoot(RouterTransaction.with(rootController));
+        }
+
+        if (MyApplication.getServiceChecker().isConnected()) {
             new YelpAuthService().getYelpAuth().subscribe();
         }
+
+
     }
 
     @Override
@@ -43,4 +66,5 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
 }

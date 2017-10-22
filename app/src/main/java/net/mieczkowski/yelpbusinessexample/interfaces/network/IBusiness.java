@@ -1,4 +1,4 @@
-package net.mieczkowski.yelpbusinessexample.networkInterfaces;
+package net.mieczkowski.yelpbusinessexample.interfaces.network;
 
 import net.mieczkowski.yelpbusinessexample.models.business.BusinessDetails;
 import net.mieczkowski.yelpbusinessexample.models.business.YelpBusinessWrapper;

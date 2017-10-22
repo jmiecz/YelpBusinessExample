@@ -1,14 +1,12 @@
 package net.mieczkowski.yelpbusinessexample.mockedData;
 
 import net.mieczkowski.yelpbusinessexample.models.auth.YelpAuth;
-import net.mieczkowski.yelpbusinessexample.models.auth.YelpAuthRequest;
-import net.mieczkowski.yelpbusinessexample.networkInterfaces.IAuth;
+import net.mieczkowski.yelpbusinessexample.interfaces.network.IAuth;
 import net.mieczkowski.yelpbusinessexample.services.base.RetroService;
 
 import java.io.IOException;
 
 import io.reactivex.Single;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 
 /**

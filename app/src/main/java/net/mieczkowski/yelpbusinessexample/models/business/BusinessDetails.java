@@ -97,13 +97,13 @@ public class BusinessDetails extends BaseModel implements Parcelable {
     }
 
     @JsonProperty("photos")
-    public void setPhotos(JsonNode photos){
+    public void setPhotos(JsonNode photos) {
         this.businessPhotosString = photos.toString();
     }
 
     public ArrayList<String> getBusinessPhotos() {
-        if( businessPhotos.isEmpty()){
-            if(businessPhotosString != null && !businessPhotosString.isEmpty()){
+        if (businessPhotos.isEmpty()) {
+            if (businessPhotosString != null && !businessPhotosString.isEmpty()) {
 
                 try {
                     businessPhotos = RetroService.getArrayList(businessPhotosString, String.class);

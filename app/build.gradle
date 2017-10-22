@@ -58,6 +58,8 @@ dependencies {
     compile "com.android.support:recyclerview-v7:${androidSupportVersion}"
     compile "com.android.support:design:${androidSupportVersion}"
 
+    compile 'com.google.android.gms:play-services-location:11.4.2'
+
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
@@ -83,4 +85,6 @@ dependencies {
 
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+    compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
 }
