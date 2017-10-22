@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -45,6 +46,9 @@ import io.reactivex.functions.Consumer;
  */
 
 public class SearchController extends BaseController implements IPreviousSearch {
+
+    @BindView(R.id.layoutRefresh)
+    SwipeRefreshLayout layoutRefresh;
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -102,6 +106,13 @@ public class SearchController extends BaseController implements IPreviousSearch 
         locationHelper.onStart();
 
         setRecyclerView();
+
+        layoutRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                searchForBusinesses(editText.getText().toString());
+            }
+        });
     }
 
     @Override
@@ -132,14 +143,14 @@ public class SearchController extends BaseController implements IPreviousSearch 
         search.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem menuItem) {
-                recyclerView.setVisibility(View.VISIBLE);
+                layoutRefresh.setVisibility(View.VISIBLE);
                 layoutWelcome.setVisibility(View.GONE);
                 return true;
             }
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-                recyclerView.setVisibility(View.GONE);
+                layoutRefresh.setVisibility(View.GONE);
                 layoutWelcome.setVisibility(View.VISIBLE);
                 return true;
             }
@@ -180,6 +191,8 @@ public class SearchController extends BaseController implements IPreviousSearch 
     }
 
     private void setSearchHistoryAdapter(){
+        layoutRefresh.setEnabled(false);
+
         if(searchHistoryAdapter == null) {
             searchHistoryAdapter = SearchHistoryAdapter.newInstance(this);
         }
@@ -196,11 +209,14 @@ public class SearchController extends BaseController implements IPreviousSearch 
     }
 
     private void setSearchBusinessAdapter(List<YelpBusiness> searchBusinessAdapter){
+        layoutRefresh.setRefreshing(false);
+        layoutRefresh.setEnabled(true);
         recyclerView.setAdapter(new SearchBusinessAdapter(searchBusinessAdapter));
     }
 
     private void searchForBusinesses(String search){
         hideKeyboard();
+        layoutRefresh.setRefreshing(true);
 
         new YelpBusinessLookupService().lookUpByName(new BusinessLookupRequest(search, myLocation))
                 .observeOn(AndroidSchedulers.mainThread())
