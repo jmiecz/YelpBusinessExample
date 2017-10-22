@@ -21,7 +21,8 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/AppTheme.Toolbar"
-                app:titleTextColor="@color/title_bar_text_color"/>
+                app:titleTextColor="@color/title_bar_text_color"
+                app:collapseIcon="@drawable/ic_arrow_back_white_24dp"/>
 
 
         </android.support.design.widget.AppBarLayout>

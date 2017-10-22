@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
@@ -112,8 +114,15 @@ public class SearchController extends BaseController implements IPreviousSearch 
 
         MenuItem search = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) search.getActionView();
+
         editText = searchView.findViewById(R.id.search_src_text);
+        editText.setTextColor(ContextCompat.getColor(getActivity(), R.color.title_bar_text_color));
+        editText.setHintTextColor(ContextCompat.getColor(getActivity(), R.color.hint_color));
+        editText.setHint(R.string.search_for_business);
         editText.setFilters(new InputFilter[]{filter});
+
+        ImageView searchClose = searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+        searchClose.setImageResource(R.drawable.ic_clear_white_24dp);
 
         search.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
