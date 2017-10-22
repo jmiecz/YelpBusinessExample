@@ -74,7 +74,7 @@ public class YelpBusinessLookupService extends BaseService<IBusiness> {
                         toReturn.addAll(yelpBusinesses);
 
                         for (YelpBusiness yelpBusiness : toReturn) {
-                            yelpBusiness.setSearchKey(businessLookupRequest.getSearchKey());
+                            yelpBusiness.setSearchKey(businessLookupRequest.getSearchTerm());
                         }
 
                         return toReturn;

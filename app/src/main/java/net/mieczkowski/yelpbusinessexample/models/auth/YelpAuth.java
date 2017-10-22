@@ -1,7 +1,5 @@
 package net.mieczkowski.yelpbusinessexample.models.auth;
 
-import android.os.Parcel;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.Table;

@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -175,7 +174,7 @@ public class SearchController extends BaseController implements IPreviousSearch 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(
                 new HorizontalDividerItemDecoration.Builder(getActivity())
-                        .color(Color.GRAY)
+                        .color(Color.LTGRAY)
                         .sizeResId(R.dimen.divider)
                         .build());
     }

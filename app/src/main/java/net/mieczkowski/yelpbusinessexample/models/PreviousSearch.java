@@ -1,7 +1,5 @@
 package net.mieczkowski.yelpbusinessexample.models;
 
-import android.os.Parcel;
-
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;

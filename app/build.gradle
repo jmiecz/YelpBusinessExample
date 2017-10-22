@@ -87,4 +87,6 @@ dependencies {
     compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
 
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
+
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

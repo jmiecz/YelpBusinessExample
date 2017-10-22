@@ -1,7 +1,6 @@
 package net.mieczkowski.yelpbusinessexample.tools;
 
 import android.app.Activity;
-import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
@@ -15,18 +14,8 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import net.mieczkowski.yelpbusinessexample.interfaces.ILocation;
-import net.mieczkowski.yelpbusinessexample.models.LocationInfo;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Josh Mieczkowski on 10/21/2017.

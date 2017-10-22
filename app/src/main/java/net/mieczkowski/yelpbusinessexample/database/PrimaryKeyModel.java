@@ -1,8 +1,5 @@
 package net.mieczkowski.yelpbusinessexample.database;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 

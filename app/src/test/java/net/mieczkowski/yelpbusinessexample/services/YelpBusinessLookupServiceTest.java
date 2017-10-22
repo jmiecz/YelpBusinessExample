@@ -57,7 +57,7 @@ public class YelpBusinessLookupServiceTest {
                         return yelpBusiness.getName().equals("Gary Danko")
                                 && yelpBusiness.getPhone().equals("+14157492060")
                                 && yelpBusiness.getId().equals("gary-danko-san-francisco")
-                                && yelpBusiness.getSearchKey().equals("TEST0.00.0")
+                                && yelpBusiness.getSearchKey().equals("TEST")
                                 && businessLocation.getAddress1().equals("800 N Point St")
                                 && businessLocation.getAddress2().isEmpty()
                                 && businessLocation.getAddress3().isEmpty()
