@@ -96,18 +96,22 @@ public class YelpBusinessLookupService extends BaseService<IBusiness> {
         });
     }
 
+    public Single<ArrayList<YelpBusiness>> lookUpByNameCache(String searchTerm){
+        ArrayList<YelpBusiness> yelpBusinesses = new ArrayList<>();
+        yelpBusinesses.addAll(
+                SQLite.select()
+                        .from(YelpBusiness.class)
+                        .where(YelpBusiness_Table.searchKey.is(searchTerm))
+                        .queryList()
+        );
+
+        return Single.just(yelpBusinesses);
+    }
+
     public Single<ArrayList<YelpBusiness>> lookUpByName(BusinessLookupRequest businessLookupRequest) {
 
         if (!MyApplication.getServiceChecker().isConnected()) {
-            ArrayList<YelpBusiness> yelpBusinesses = new ArrayList<>();
-            yelpBusinesses.addAll(
-                    SQLite.select()
-                            .from(YelpBusiness.class)
-                            .where(YelpBusiness_Table.searchKey.is(businessLookupRequest.getSearchTerm()))
-                            .queryList()
-            );
-
-            return Single.just(yelpBusinesses);
+            lookUpByNameCache(businessLookupRequest.getSearchTerm());
         }
 
         return newLookUpByName(businessLookupRequest)
