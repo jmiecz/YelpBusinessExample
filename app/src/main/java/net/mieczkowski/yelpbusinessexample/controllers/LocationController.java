@@ -31,6 +31,7 @@ public class LocationController extends BaseController {
 
     @Override
     protected void onViewBound(@NonNull View view) {
+        setTitle(getResources().getString(R.string.location_permission));
         requestForLocation();
     }
 

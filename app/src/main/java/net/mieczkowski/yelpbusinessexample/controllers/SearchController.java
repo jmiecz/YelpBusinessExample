@@ -1,5 +1,6 @@
 package net.mieczkowski.yelpbusinessexample.controllers;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
@@ -81,6 +83,8 @@ public class SearchController extends BaseController implements IPreviousSearch 
 
     @Override
     protected void onViewBound(@NonNull View view) {
+        setTitle(getResources().getString(R.string.business_lookup));
+
         locationHelper = new LocationHelper(getActivity(), new ILocationInfo() {
             @Override
             public void onInfoReceived(LocationInfo locationInfo) {
@@ -99,6 +103,8 @@ public class SearchController extends BaseController implements IPreviousSearch 
         super.onDestroyView(view);
     }
 
+    EditText editText;
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -106,7 +112,7 @@ public class SearchController extends BaseController implements IPreviousSearch 
 
         MenuItem search = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) search.getActionView();
-        EditText editText = searchView.findViewById(R.id.search_src_text);
+        editText = searchView.findViewById(R.id.search_src_text);
         editText.setFilters(new InputFilter[]{filter});
 
         search.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
@@ -132,8 +138,6 @@ public class SearchController extends BaseController implements IPreviousSearch 
 
                 SearchHistoryAdapter searchHistoryAdapter = (SearchHistoryAdapter) recyclerPreviousSearches.getAdapter();
                 searchHistoryAdapter.addItem(previousSearch, 0);
-
-                recyclerPreviousSearches.setVisibility(View.GONE);
 
                 searchForBusinesses(query);
 
@@ -163,7 +167,15 @@ public class SearchController extends BaseController implements IPreviousSearch 
                         .build());
     }
 
+    private void hideKeyboard(){
+        InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
     private void searchForBusinesses(String search){
+        recyclerPreviousSearches.setVisibility(View.GONE);
+        hideKeyboard();
+
         BusinessLookupRequest.Builder builder = BusinessLookupRequest.newBuilder().name(search);
         if(locationInfo != null){
             builder.city(locationInfo.getCity())
@@ -188,6 +200,7 @@ public class SearchController extends BaseController implements IPreviousSearch 
 
     @Override
     public void onPreviousSearchClicked(PreviousSearch previousSearch) {
+        editText.setText(previousSearch.getSearchTerm());
         searchForBusinesses(previousSearch.getSearchTerm());
     }
 }

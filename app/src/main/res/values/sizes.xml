@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="divider">2dp</dimen>
+    <dimen name="divider">1dp</dimen>
 
     <dimen name="display_text_size">34sp</dimen>
     <dimen name="headline_text_size">24sp</dimen>
