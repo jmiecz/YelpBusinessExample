@@ -10,11 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.InputFilter;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,7 +25,6 @@ import net.mieczkowski.yelpbusinessexample.R;
 import net.mieczkowski.yelpbusinessexample.controllers.base.BaseController;
 import net.mieczkowski.yelpbusinessexample.interfaces.ILocation;
 import net.mieczkowski.yelpbusinessexample.interfaces.IPreviousSearch;
-import net.mieczkowski.yelpbusinessexample.models.LocationInfo;
 import net.mieczkowski.yelpbusinessexample.models.MyLocation;
 import net.mieczkowski.yelpbusinessexample.models.PreviousSearch;
 import net.mieczkowski.yelpbusinessexample.models.business.BusinessLookupRequest;
@@ -46,8 +45,13 @@ import io.reactivex.functions.Consumer;
 
 public class SearchController extends BaseController implements IPreviousSearch {
 
-    @BindView(R.id.recyclerPreviousSearches)
-    RecyclerView recyclerPreviousSearches;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+
+    @BindView(R.id.layoutWelcome)
+    View layoutWelcome;
+
+    private SearchHistoryAdapter searchHistoryAdapter;
 
     private LocationHelper locationHelper;
     private MyLocation myLocation;
@@ -96,7 +100,7 @@ public class SearchController extends BaseController implements IPreviousSearch 
 
         locationHelper.onStart();
 
-        setRecyclerPreviousSearches();
+        setRecyclerView();
     }
 
     @Override
@@ -105,7 +109,7 @@ public class SearchController extends BaseController implements IPreviousSearch 
         super.onDestroyView(view);
     }
 
-    EditText editText;
+    private EditText editText;
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -127,14 +131,15 @@ public class SearchController extends BaseController implements IPreviousSearch 
         search.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem menuItem) {
-                recyclerPreviousSearches.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
+                layoutWelcome.setVisibility(View.GONE);
                 return true;
             }
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-                recyclerPreviousSearches.setVisibility(View.GONE);
-
+                recyclerView.setVisibility(View.GONE);
+                layoutWelcome.setVisibility(View.VISIBLE);
                 return true;
             }
         });
@@ -145,7 +150,6 @@ public class SearchController extends BaseController implements IPreviousSearch 
                 PreviousSearch previousSearch = new PreviousSearch(query);
                 previousSearch.save();
 
-                SearchHistoryAdapter searchHistoryAdapter = (SearchHistoryAdapter) recyclerPreviousSearches.getAdapter();
                 searchHistoryAdapter.addItem(previousSearch, 0);
 
                 searchForBusinesses(query);
@@ -156,7 +160,7 @@ public class SearchController extends BaseController implements IPreviousSearch 
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (newText.isEmpty()) {
-                    recyclerPreviousSearches.setVisibility(View.VISIBLE);
+                    setSearchHistoryAdapter();
                 }
 
                 return true;
@@ -165,15 +169,24 @@ public class SearchController extends BaseController implements IPreviousSearch 
 
     }
 
-    private void setRecyclerPreviousSearches() {
-        recyclerPreviousSearches.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerPreviousSearches.setAdapter(SearchHistoryAdapter.newInstance(this));
-
-        recyclerPreviousSearches.addItemDecoration(
+    private void setRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.addItemDecoration(
                 new HorizontalDividerItemDecoration.Builder(getActivity())
                         .color(Color.GRAY)
                         .sizeResId(R.dimen.divider)
                         .build());
+    }
+
+    private void setSearchHistoryAdapter(){
+        if(searchHistoryAdapter == null) {
+            searchHistoryAdapter = SearchHistoryAdapter.newInstance(this);
+        }
+
+        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        if(adapter == null || !(adapter instanceof SearchHistoryAdapter)){
+            recyclerView.setAdapter(searchHistoryAdapter);
+        }
     }
 
     private void hideKeyboard(){
@@ -182,7 +195,6 @@ public class SearchController extends BaseController implements IPreviousSearch 
     }
 
     private void searchForBusinesses(String search){
-        recyclerPreviousSearches.setVisibility(View.GONE);
         hideKeyboard();
 
         new YelpBusinessLookupService().lookUpByName(new BusinessLookupRequest(search, myLocation))

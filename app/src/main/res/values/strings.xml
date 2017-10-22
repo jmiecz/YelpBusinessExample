@@ -6,4 +6,5 @@
     <string name="business_lookup">Business Lookup</string>
     <string name="location_permission">Location Permission</string>
     <string name="search_for_business">Search for business</string>
+    <string name="start_searching_for_a_business_by_clicking_on_the_search_icon">Start searching for a business by clicking on the search icon!</string>
 </resources>
