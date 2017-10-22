@@ -1,6 +1,9 @@
 package net.mieczkowski.yelpbusinessexample.services;
 
+import android.location.Location;
+
 import net.mieczkowski.yelpbusinessexample.mockedData.MockedBusinessLookupData;
+import net.mieczkowski.yelpbusinessexample.models.MyLocation;
 import net.mieczkowski.yelpbusinessexample.models.business.BusinessCoordinates;
 import net.mieczkowski.yelpbusinessexample.models.business.BusinessDetails;
 import net.mieczkowski.yelpbusinessexample.models.business.BusinessLocation;
@@ -29,11 +32,7 @@ public class YelpBusinessLookupServiceTest {
 
     @Test
     public void newLookUpByName() throws Exception {
-        BusinessLookupRequest businessLookupRequest = BusinessLookupRequest.newBuilder()
-                .name("TEST")
-                .city("test2")
-                .state("Test3")
-                .build();
+        BusinessLookupRequest businessLookupRequest = new BusinessLookupRequest("TEST", new MyLocation(0, 0));
 
         yelpBusinessLookupService.newLookUpByName(businessLookupRequest)
                 .test()
@@ -58,7 +57,7 @@ public class YelpBusinessLookupServiceTest {
                         return yelpBusiness.getName().equals("Gary Danko")
                                 && yelpBusiness.getPhone().equals("+14157492060")
                                 && yelpBusiness.getId().equals("gary-danko-san-francisco")
-                                && yelpBusiness.getSearchKey().equals("TESTtest2Test3US")
+                                && yelpBusiness.getSearchKey().equals("TEST0.00.0")
                                 && businessLocation.getAddress1().equals("800 N Point St")
                                 && businessLocation.getAddress2().isEmpty()
                                 && businessLocation.getAddress3().isEmpty()

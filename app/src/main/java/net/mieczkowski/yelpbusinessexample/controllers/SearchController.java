@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.InputFilter;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.util.Log;
 import android.view.Menu;
@@ -22,9 +21,10 @@ import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import net.mieczkowski.yelpbusinessexample.R;
 import net.mieczkowski.yelpbusinessexample.controllers.base.BaseController;
-import net.mieczkowski.yelpbusinessexample.interfaces.ILocationInfo;
+import net.mieczkowski.yelpbusinessexample.interfaces.ILocation;
 import net.mieczkowski.yelpbusinessexample.interfaces.IPreviousSearch;
 import net.mieczkowski.yelpbusinessexample.models.LocationInfo;
+import net.mieczkowski.yelpbusinessexample.models.MyLocation;
 import net.mieczkowski.yelpbusinessexample.models.PreviousSearch;
 import net.mieczkowski.yelpbusinessexample.models.business.BusinessLookupRequest;
 import net.mieczkowski.yelpbusinessexample.models.business.YelpBusiness;
@@ -48,7 +48,7 @@ public class SearchController extends BaseController implements IPreviousSearch 
     RecyclerView recyclerPreviousSearches;
 
     private LocationHelper locationHelper;
-    private LocationInfo locationInfo;
+    private MyLocation myLocation;
 
     private char[] allowChars = new char[]{'!', '#', '$', '%', '&', '+', ',', '­', '.', '/', ':', '?', '@'};
 
@@ -85,10 +85,10 @@ public class SearchController extends BaseController implements IPreviousSearch 
     protected void onViewBound(@NonNull View view) {
         setTitle(getResources().getString(R.string.business_lookup));
 
-        locationHelper = new LocationHelper(getActivity(), new ILocationInfo() {
+        locationHelper = new LocationHelper(getActivity(), new ILocation() {
             @Override
-            public void onInfoReceived(LocationInfo locationInfo) {
-                SearchController.this.locationInfo = locationInfo;
+            public void onLocationReceived(Location location) {
+                myLocation = new MyLocation(location.getLatitude(), location.getLongitude());
             }
         });
 
@@ -176,13 +176,7 @@ public class SearchController extends BaseController implements IPreviousSearch 
         recyclerPreviousSearches.setVisibility(View.GONE);
         hideKeyboard();
 
-        BusinessLookupRequest.Builder builder = BusinessLookupRequest.newBuilder().name(search);
-        if(locationInfo != null){
-            builder.city(locationInfo.getCity())
-                    .state(locationInfo.getState());
-        }
-
-        new YelpBusinessLookupService().lookUpByName(builder.build())
+        new YelpBusinessLookupService().lookUpByName(new BusinessLookupRequest(search, myLocation))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<ArrayList<YelpBusiness>>() {
                     @Override

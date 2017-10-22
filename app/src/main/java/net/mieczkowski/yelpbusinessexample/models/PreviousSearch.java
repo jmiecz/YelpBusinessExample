@@ -46,31 +46,4 @@ public class PreviousSearch extends PrimaryKeyModel {
         this.searchTerm = searchTerm;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeString(this.searchTerm);
-    }
-
-    protected PreviousSearch(Parcel in) {
-        super(in);
-        this.searchTerm = in.readString();
-    }
-
-    public static final Creator<PreviousSearch> CREATOR = new Creator<PreviousSearch>() {
-        @Override
-        public PreviousSearch createFromParcel(Parcel source) {
-            return new PreviousSearch(source);
-        }
-
-        @Override
-        public PreviousSearch[] newArray(int size) {
-            return new PreviousSearch[size];
-        }
-    };
 }

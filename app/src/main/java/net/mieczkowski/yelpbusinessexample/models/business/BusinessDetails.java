@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 
 @Table(database = MyDatabase.class)
-public class BusinessDetails extends BaseModel implements Parcelable {
+public class BusinessDetails extends BaseModel {
 
     @Column
     @PrimaryKey
@@ -119,46 +119,4 @@ public class BusinessDetails extends BaseModel implements Parcelable {
 
     public BusinessDetails() {
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
-        dest.writeString(this.imgUrl);
-        dest.writeByte(this.isClaimed ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isClosed ? (byte) 1 : (byte) 0);
-        dest.writeString(this.businessUrl);
-        dest.writeString(this.priceRating);
-        dest.writeDouble(this.rating);
-        dest.writeInt(this.reviewCount);
-        dest.writeStringList(this.businessPhotos);
-    }
-
-    protected BusinessDetails(Parcel in) {
-        this.id = in.readString();
-        this.imgUrl = in.readString();
-        this.isClaimed = in.readByte() != 0;
-        this.isClosed = in.readByte() != 0;
-        this.businessUrl = in.readString();
-        this.priceRating = in.readString();
-        this.rating = in.readDouble();
-        this.reviewCount = in.readInt();
-        this.businessPhotos = in.createStringArrayList();
-    }
-
-    public static final Creator<BusinessDetails> CREATOR = new Creator<BusinessDetails>() {
-        @Override
-        public BusinessDetails createFromParcel(Parcel source) {
-            return new BusinessDetails(source);
-        }
-
-        @Override
-        public BusinessDetails[] newArray(int size) {
-            return new BusinessDetails[size];
-        }
-    };
 }

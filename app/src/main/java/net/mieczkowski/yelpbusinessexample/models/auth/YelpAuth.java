@@ -43,33 +43,5 @@ public class YelpAuth extends PrimaryKeyModel {
         this.tokenType = tokenType;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeString(this.accessToken);
-        dest.writeString(this.tokenType);
-    }
-
-    protected YelpAuth(Parcel in) {
-        super(in);
-        this.accessToken = in.readString();
-        this.tokenType = in.readString();
-    }
-
-    public static final Creator<YelpAuth> CREATOR = new Creator<YelpAuth>() {
-        @Override
-        public YelpAuth createFromParcel(Parcel source) {
-            return new YelpAuth(source);
-        }
-
-        @Override
-        public YelpAuth[] newArray(int size) {
-            return new YelpAuth[size];
-        }
-    };
 }

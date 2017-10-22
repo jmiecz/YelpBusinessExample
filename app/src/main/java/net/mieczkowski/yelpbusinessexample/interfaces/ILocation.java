@@ -8,7 +8,7 @@ import net.mieczkowski.yelpbusinessexample.models.LocationInfo;
  * Created by Josh Mieczkowski on 10/21/2017.
  */
 
-public interface ILocationInfo {
+public interface ILocation {
 
-    void onInfoReceived(LocationInfo locationInfo);
+    void onLocationReceived(Location location);
 }

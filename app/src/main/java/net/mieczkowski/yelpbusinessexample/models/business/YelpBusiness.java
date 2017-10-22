@@ -18,7 +18,7 @@ import net.mieczkowski.yelpbusinessexample.database.MyDatabase;
  */
 
 @Table(database = MyDatabase.class)
-public class YelpBusiness extends BaseModel implements Parcelable {
+public class YelpBusiness extends BaseModel{
 
     @PrimaryKey
     @JsonProperty("id")
@@ -87,41 +87,4 @@ public class YelpBusiness extends BaseModel implements Parcelable {
     public YelpBusiness() {
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
-        dest.writeString(this.name);
-        dest.writeString(this.phone);
-        dest.writeParcelable(this.businessLocation, flags);
-        dest.writeParcelable(this.businessCoordinates, flags);
-        dest.writeParcelable(this.businessDetails, flags);
-        dest.writeString(this.searchKey);
-    }
-
-    protected YelpBusiness(Parcel in) {
-        this.id = in.readString();
-        this.name = in.readString();
-        this.phone = in.readString();
-        this.businessLocation = in.readParcelable(BusinessLocation.class.getClassLoader());
-        this.businessCoordinates = in.readParcelable(BusinessCoordinates.class.getClassLoader());
-        this.businessDetails = in.readParcelable(BusinessDetails.class.getClassLoader());
-        this.searchKey = in.readString();
-    }
-
-    public static final Creator<YelpBusiness> CREATOR = new Creator<YelpBusiness>() {
-        @Override
-        public YelpBusiness createFromParcel(Parcel source) {
-            return new YelpBusiness(source);
-        }
-
-        @Override
-        public YelpBusiness[] newArray(int size) {
-            return new YelpBusiness[size];
-        }
-    };
 }

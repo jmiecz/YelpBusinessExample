@@ -15,7 +15,7 @@ import net.mieczkowski.yelpbusinessexample.database.PrimaryKeyModel;
  */
 
 @Table(database = MyDatabase.class)
-public class BusinessLocation extends PrimaryKeyModel implements Parcelable {
+public class BusinessLocation extends PrimaryKeyModel {
 
     @Column
     @JsonProperty("address1")
@@ -76,41 +76,4 @@ public class BusinessLocation extends PrimaryKeyModel implements Parcelable {
     public BusinessLocation() {
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.address1);
-        dest.writeString(this.address2);
-        dest.writeString(this.address3);
-        dest.writeString(this.city);
-        dest.writeString(this.state);
-        dest.writeString(this.postalCode);
-        dest.writeString(this.country);
-    }
-
-    protected BusinessLocation(Parcel in) {
-        this.address1 = in.readString();
-        this.address2 = in.readString();
-        this.address3 = in.readString();
-        this.city = in.readString();
-        this.state = in.readString();
-        this.postalCode = in.readString();
-        this.country = in.readString();
-    }
-
-    public static final Parcelable.Creator<BusinessLocation> CREATOR = new Parcelable.Creator<BusinessLocation>() {
-        @Override
-        public BusinessLocation createFromParcel(Parcel source) {
-            return new BusinessLocation(source);
-        }
-
-        @Override
-        public BusinessLocation[] newArray(int size) {
-            return new BusinessLocation[size];
-        }
-    };
 }

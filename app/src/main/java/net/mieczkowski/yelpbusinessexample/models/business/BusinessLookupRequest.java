@@ -1,72 +1,40 @@
 package net.mieczkowski.yelpbusinessexample.models.business;
 
+import android.location.Location;
+
+import net.mieczkowski.yelpbusinessexample.models.MyLocation;
+
 /**
  * Created by Josh Mieczkowski on 10/19/2017.
  */
 
 public class BusinessLookupRequest {
 
-    private String name;
-    private String city;
-    private String state;
-    private String country = "US";
+    private String searchTerm;
+    private MyLocation location;
 
-    private BusinessLookupRequest(Builder builder) {
-        name = builder.name;
-        city = builder.city;
-        state = builder.state;
+    public BusinessLookupRequest(String searchTerm, MyLocation location) {
+        this.searchTerm = searchTerm;
+        this.location = location;
     }
 
-    public String getName() {
-        return name;
+    public String getSearchTerm() {
+        return searchTerm;
     }
 
-    public String getCity() {
-        return city;
+    public String getSearchKey(){
+        return searchTerm + getLocation().getLatitude() + getLocation().getLongitude();
     }
 
-    public String getState() {
-        return state;
+    public void setSearchTerm(String searchTerm) {
+        this.searchTerm = searchTerm;
     }
 
-    public String getCountry() {
-        return country;
+    public MyLocation getLocation() {
+        return location;
     }
 
-    public String getSearchKey() {
-        return name + city + state + country;
-    }
-
-    public static Builder newBuilder() {
-        return new Builder();
-    }
-
-
-    public static final class Builder {
-        private String name;
-        private String city;
-        private String state;
-
-        private Builder() {
-        }
-
-        public Builder name(String val) {
-            name = val;
-            return this;
-        }
-
-        public Builder city(String val) {
-            city = val;
-            return this;
-        }
-
-        public Builder state(String val) {
-            state = val;
-            return this;
-        }
-
-        public BusinessLookupRequest build() {
-            return new BusinessLookupRequest(this);
-        }
+    public void setLocation(MyLocation location) {
+        this.location = location;
     }
 }

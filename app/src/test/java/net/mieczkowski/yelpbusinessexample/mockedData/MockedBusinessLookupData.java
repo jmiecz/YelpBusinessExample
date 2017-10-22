@@ -18,7 +18,7 @@ import retrofit2.http.Query;
 public class MockedBusinessLookupData implements IBusiness{
 
     @Override
-    public Single<YelpBusinessWrapper> lookUpBusiness(@Query("name") String name, @Query("city") String city, @Query("state") String state, @Query("country") String country) {
+    public Single<YelpBusinessWrapper> lookUpBusiness(@Query("term") String search, @Query("latitude") double latitude, @Query("longitude") double longitude) {
         String json = "{\n" +
                 "\t\"businesses\": [{\n" +
                 "\t\t\"name\": \"Gary Danko\",\n" +

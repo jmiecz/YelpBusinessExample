@@ -15,7 +15,7 @@ import net.mieczkowski.yelpbusinessexample.database.PrimaryKeyModel;
  */
 
 @Table(database = MyDatabase.class)
-public class BusinessCoordinates extends PrimaryKeyModel implements Parcelable {
+public class BusinessCoordinates extends PrimaryKeyModel {
 
     @Column
     @JsonProperty("latitude")
@@ -36,31 +36,4 @@ public class BusinessCoordinates extends PrimaryKeyModel implements Parcelable {
     public BusinessCoordinates() {
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeDouble(this.latitude);
-        dest.writeDouble(this.longitude);
-    }
-
-    protected BusinessCoordinates(Parcel in) {
-        this.latitude = in.readDouble();
-        this.longitude = in.readDouble();
-    }
-
-    public static final Parcelable.Creator<BusinessCoordinates> CREATOR = new Parcelable.Creator<BusinessCoordinates>() {
-        @Override
-        public BusinessCoordinates createFromParcel(Parcel source) {
-            return new BusinessCoordinates(source);
-        }
-
-        @Override
-        public BusinessCoordinates[] newArray(int size) {
-            return new BusinessCoordinates[size];
-        }
-    };
 }

@@ -44,10 +44,9 @@ public class YelpBusinessLookupService extends BaseService<IBusiness> {
 
     Single<ArrayList<YelpBusiness>> newLookUpByName(final BusinessLookupRequest businessLookupRequest) {
         return getDal().lookUpBusiness(
-                businessLookupRequest.getName(),
-                businessLookupRequest.getCity(),
-                businessLookupRequest.getState(),
-                businessLookupRequest.getCountry()
+                businessLookupRequest.getSearchTerm(),
+                businessLookupRequest.getLocation().getLatitude(),
+                businessLookupRequest.getLocation().getLongitude()
         )
                 .map(new Function<YelpBusinessWrapper, ArrayList<YelpBusiness>>() {
                     @Override
@@ -104,7 +103,7 @@ public class YelpBusinessLookupService extends BaseService<IBusiness> {
             yelpBusinesses.addAll(
                     SQLite.select()
                             .from(YelpBusiness.class)
-                            .where(YelpBusiness_Table.searchKey.is(businessLookupRequest.getSearchKey()))
+                            .where(YelpBusiness_Table.searchKey.is(businessLookupRequest.getSearchTerm()))
                             .queryList()
             );
 
