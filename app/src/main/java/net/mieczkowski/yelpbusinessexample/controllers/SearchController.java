@@ -29,11 +29,13 @@ import net.mieczkowski.yelpbusinessexample.models.MyLocation;
 import net.mieczkowski.yelpbusinessexample.models.PreviousSearch;
 import net.mieczkowski.yelpbusinessexample.models.business.BusinessLookupRequest;
 import net.mieczkowski.yelpbusinessexample.models.business.YelpBusiness;
+import net.mieczkowski.yelpbusinessexample.recyclerAdapters.searchBusiness.SearchBusinessAdapter;
 import net.mieczkowski.yelpbusinessexample.recyclerAdapters.searchHistory.SearchHistoryAdapter;
 import net.mieczkowski.yelpbusinessexample.services.YelpBusinessLookupService;
 import net.mieczkowski.yelpbusinessexample.tools.LocationHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -194,6 +196,10 @@ public class SearchController extends BaseController implements IPreviousSearch 
         inputManager.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
+    private void setSearchBusinessAdapter(List<YelpBusiness> searchBusinessAdapter){
+        recyclerView.setAdapter(new SearchBusinessAdapter(searchBusinessAdapter));
+    }
+
     private void searchForBusinesses(String search){
         hideKeyboard();
 
@@ -202,13 +208,13 @@ public class SearchController extends BaseController implements IPreviousSearch 
                 .subscribe(new Consumer<ArrayList<YelpBusiness>>() {
                     @Override
                     public void accept(ArrayList<YelpBusiness> yelpBusinesses) throws Exception {
-                        //TODO:
+                        setSearchBusinessAdapter(yelpBusinesses);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        //TODO:
                         throwable.printStackTrace();
+                        setSearchBusinessAdapter(new ArrayList<YelpBusiness>());
                     }
                 });
     }

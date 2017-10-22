@@ -11,11 +11,14 @@ import net.mieczkowski.yelpbusinessexample.models.MyLocation;
 public class BusinessLookupRequest {
 
     private String searchTerm;
-    private MyLocation location;
+    private MyLocation location = new MyLocation(0, 0);
 
     public BusinessLookupRequest(String searchTerm, MyLocation location) {
         this.searchTerm = searchTerm;
-        this.location = location;
+
+        if(location != null) {
+            this.location = location;
+        }
     }
 
     public String getSearchTerm() {
