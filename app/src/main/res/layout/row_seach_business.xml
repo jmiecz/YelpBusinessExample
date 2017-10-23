@@ -6,14 +6,30 @@
     android:paddingBottom="8dp"
     android:background="?android:attr/selectableItemBackground">
 
-    <TextView
-        android:id="@+id/txtRatings"
+    <LinearLayout
+        android:id="@+id/layoutInfo"
         android:layout_width="wrap_content"
-        android:textColor="@color/row_business_title_color"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="16dp"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/txtRatings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/row_business_title_color" />
+
+        <TextView
+            android:id="@+id/txtReviewCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/row_business_title_color" />
+
+    </LinearLayout>
+
+
 
     <ImageView
         android:id="@+id/imgIcon"
@@ -32,7 +48,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_toEndOf="@id/imgIcon"
-        android:layout_toStartOf="@id/txtRatings"
+        android:layout_toStartOf="@id/layoutInfo"
         android:layout_centerVertical="true" />
 
 
