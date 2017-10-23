@@ -14,6 +14,8 @@ import net.mieczkowski.yelpbusinessexample.services.base.BaseService;
 import org.reactivestreams.Publisher;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -79,7 +81,7 @@ public class YelpBusinessLookupService extends BaseService<IBusiness> {
 
                         return toReturn;
                     }
-                });
+                }).map(sortFunction);
     }
 
     private Single<BusinessDetails> getBusinessDetails(YelpBusiness yelpBusiness) {
@@ -96,6 +98,44 @@ public class YelpBusinessLookupService extends BaseService<IBusiness> {
         });
     }
 
+    private Function<ArrayList<YelpBusiness>, ArrayList<YelpBusiness>> sortFunction = new Function<ArrayList<YelpBusiness>, ArrayList<YelpBusiness>>() {
+        @Override
+        public ArrayList<YelpBusiness> apply(@NonNull ArrayList<YelpBusiness> yelpBusinesses) throws Exception {
+            Collections.sort(yelpBusinesses, new Comparator<YelpBusiness>() {
+                @Override
+                public int compare(YelpBusiness yelpBusiness, YelpBusiness yelpBusiness2) {
+                    int reviewCount1 = yelpBusiness.getBusinessDetails().getReviewCount();
+                    int reviewCount2 = yelpBusiness2.getBusinessDetails().getReviewCount();
+
+                    if(reviewCount1 > reviewCount2){
+                        return -1;
+                    }else if(reviewCount1 < reviewCount2){
+                        return 1;
+                    }
+
+                    return 0;
+                }
+            });
+
+            Collections.sort(yelpBusinesses, new Comparator<YelpBusiness>() {
+                @Override
+                public int compare(YelpBusiness yelpBusiness, YelpBusiness yelpBusiness2) {
+                    double rating1 = yelpBusiness.getBusinessDetails().getRating();
+                    double rating2 = yelpBusiness2.getBusinessDetails().getRating();
+
+                    if(rating1 > rating2){
+                        return -1;
+                    }else if(rating1 < rating2){
+                        return 1;
+                    }
+
+                    return 0;
+                }
+            });
+            return yelpBusinesses;
+        }
+    };
+
     public Single<ArrayList<YelpBusiness>> lookUpByNameCache(String searchTerm){
         ArrayList<YelpBusiness> yelpBusinesses = new ArrayList<>();
         yelpBusinesses.addAll(
@@ -105,7 +145,7 @@ public class YelpBusinessLookupService extends BaseService<IBusiness> {
                         .queryList()
         );
 
-        return Single.just(yelpBusinesses);
+        return Single.just(yelpBusinesses).map(sortFunction);
     }
 
     public Single<ArrayList<YelpBusiness>> lookUpByName(BusinessLookupRequest businessLookupRequest) {

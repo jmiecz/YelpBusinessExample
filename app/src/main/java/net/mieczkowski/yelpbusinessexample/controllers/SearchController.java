@@ -1,5 +1,6 @@
 package net.mieczkowski.yelpbusinessexample.controllers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
@@ -51,6 +52,7 @@ import io.reactivex.functions.Consumer;
 public class SearchController extends BaseController implements IPreviousSearch {
 
     private static final String SEARCH_SAVE = "searchSave";
+    private static final String CURRENT_QUERY = "currentQuery";
 
     @BindView(R.id.layoutRefresh)
     SwipeRefreshLayout layoutRefresh;
@@ -62,11 +64,14 @@ public class SearchController extends BaseController implements IPreviousSearch 
     View layoutWelcome;
 
     private SearchHistoryAdapter searchHistoryAdapter;
+    private SearchBusinessAdapter searchBusinessAdapter;
 
     private LocationHelper locationHelper;
     private MyLocation myLocation;
 
     private String currentSearch;
+    private String currentQuery;
+    private boolean activityResumed = false;
 
     private char[] allowChars = new char[]{'!', '#', '$', '%', '&', '+', ',', '­', '.', '/', ':', '?', '@'};
 
@@ -129,14 +134,21 @@ public class SearchController extends BaseController implements IPreviousSearch 
         super.onSaveViewState(view, outState);
         if(currentSearch != null){
             outState.putString(SEARCH_SAVE, currentSearch);
+        }else if(searchView != null && !searchView.getQuery().toString().isEmpty()){
+            outState.putString(CURRENT_QUERY, searchView.getQuery().toString());
         }
     }
 
     @Override
     protected void onRestoreViewState(@NonNull View view, @NonNull Bundle savedViewState) {
         super.onRestoreViewState(view, savedViewState);
+        currentSearch = null;
+        currentQuery = null;
+
         if(savedViewState.containsKey(SEARCH_SAVE)){
             currentSearch = savedViewState.getString(SEARCH_SAVE);
+        }else if(savedViewState.containsKey(CURRENT_QUERY)){
+            currentQuery = savedViewState.getString(CURRENT_QUERY);
         }
     }
 
@@ -148,6 +160,18 @@ public class SearchController extends BaseController implements IPreviousSearch 
         }
 
         super.onDestroyView(view);
+    }
+
+    @Override
+    protected void onActivityResumed(@NonNull Activity activity) {
+        super.onActivityResumed(activity);
+
+    }
+
+    @Override
+    protected void onActivityPaused(@NonNull Activity activity) {
+        super.onActivityPaused(activity);
+        activityResumed = true;
     }
 
     private MenuItem search;
@@ -204,6 +228,11 @@ public class SearchController extends BaseController implements IPreviousSearch 
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if(activityResumed){
+                    activityResumed = false;
+                    return true;
+                }
+
                 if (newText.isEmpty()) {
                     currentSearch = null;
                     setSearchHistoryAdapter();
@@ -234,6 +263,11 @@ public class SearchController extends BaseController implements IPreviousSearch 
                         }
                     });
 
+        }else if(currentQuery != null){
+            search.expandActionView();
+            searchView.setQuery(currentQuery, false);
+
+            setSearchHistoryAdapter();
         }
     }
 
@@ -264,10 +298,12 @@ public class SearchController extends BaseController implements IPreviousSearch 
         inputManager.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
-    private void setSearchBusinessAdapter(List<YelpBusiness> searchBusinessAdapter){
+    private void setSearchBusinessAdapter(List<YelpBusiness> yelpBusinesses){
         layoutRefresh.setRefreshing(false);
         layoutRefresh.setEnabled(true);
-        recyclerView.setAdapter(new SearchBusinessAdapter(searchBusinessAdapter));
+
+        searchBusinessAdapter = new SearchBusinessAdapter(yelpBusinesses);
+        recyclerView.setAdapter(searchBusinessAdapter);
     }
 
     private void searchForBusinesses(String search){
@@ -275,6 +311,10 @@ public class SearchController extends BaseController implements IPreviousSearch 
 
         hideKeyboard();
         layoutRefresh.setRefreshing(true);
+
+        if(disposable != null){
+            disposable.dispose();
+        }
 
         disposable = new YelpBusinessLookupService().lookUpByName(new BusinessLookupRequest(search, myLocation))
                 .observeOn(AndroidSchedulers.mainThread())

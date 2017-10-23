@@ -31,13 +31,22 @@ public class SearchBusinessViewHolder extends BaseViewHolder<YelpBusiness>{
     @BindView(R.id.txtRatings)
     TextView txtRatings;
 
+    @BindView(R.id.txtReviewCount)
+    TextView txtReviewCount;
+
+
     public SearchBusinessViewHolder(View itemView) {
         super(itemView);
 
-        Drawable drawable = ContextCompat.getDrawable(itemView.getContext(), R.drawable.ic_star_rate_white_18dp);
-        drawable = DrawableCompat.wrap(drawable);
-        DrawableCompat.setTint(drawable, Color.parseColor("#FFD700"));
-        txtRatings.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+        Drawable ratingsDrawable = ContextCompat.getDrawable(itemView.getContext(), R.drawable.ic_star_rate_white_18dp);
+        ratingsDrawable = DrawableCompat.wrap(ratingsDrawable);
+        DrawableCompat.setTint(ratingsDrawable, Color.parseColor("#FFD700"));
+        txtRatings.setCompoundDrawablesWithIntrinsicBounds(ratingsDrawable, null, null, null);
+
+        Drawable reviewCountDrawable = ContextCompat.getDrawable(itemView.getContext(), R.drawable.ic_edit_black_18dp);
+        reviewCountDrawable = DrawableCompat.wrap(reviewCountDrawable);
+        DrawableCompat.setTint(reviewCountDrawable, Color.parseColor("#A9A9A9"));
+        txtReviewCount.setCompoundDrawablesWithIntrinsicBounds(reviewCountDrawable, null, null, null);
     }
 
     @Override
@@ -54,5 +63,6 @@ public class SearchBusinessViewHolder extends BaseViewHolder<YelpBusiness>{
         txtTitle.setText(object.getName());
 
         txtRatings.setText(String.valueOf(object.getBusinessDetails().getRating()));
+        txtReviewCount.setText(String.valueOf(object.getBusinessDetails().getReviewCount()));
     }
 }
