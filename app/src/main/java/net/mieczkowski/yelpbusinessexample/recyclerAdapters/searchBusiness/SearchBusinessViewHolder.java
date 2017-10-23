@@ -42,9 +42,14 @@ public class SearchBusinessViewHolder extends BaseViewHolder<YelpBusiness>{
 
     @Override
     public void onBind(YelpBusiness object) {
-        Picasso.with(itemView.getContext())
-                .load(object.getBusinessDetails().getImgUrl())
-                .into(imgIcon);
+
+        if(object.getBusinessDetails().getImgUrl() != null && !object.getBusinessDetails().getImgUrl().isEmpty()) {
+            Picasso.with(itemView.getContext())
+                    .load(object.getBusinessDetails().getImgUrl())
+                    .into(imgIcon);
+        }else{
+            imgIcon.setImageResource(R.drawable.ic_close_black_24dp);
+        }
 
         txtTitle.setText(object.getName());
 
