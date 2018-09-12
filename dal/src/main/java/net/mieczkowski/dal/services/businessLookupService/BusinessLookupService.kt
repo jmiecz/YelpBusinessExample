@@ -1,26 +1,31 @@
 package net.mieczkowski.dal.services.businessLookupService
 
+import com.raizlabs.android.dbflow.sql.language.SQLite
 import io.reactivex.Flowable
 import io.reactivex.Single
+import net.mieczkowski.dal.exts.subscribeOnIO
 import net.mieczkowski.dal.services.businessLookupService.models.BusinessLookupRequest
 import net.mieczkowski.dal.services.businessLookupService.models.YelpBusiness
+import net.mieczkowski.dal.services.businessLookupService.models.YelpBusiness_Table
+import net.mieczkowski.dal.tools.ServiceChecker
 
 /**
  * Created by Josh Mieczkowski on 9/12/2018.
  */
-class BusinessLookupService(private val businessContract: BusinessContract) {
+class BusinessLookupService(private val businessContract: BusinessContract, private val serviceChecker: ServiceChecker) {
 
     fun cacheLookUpByName(searchTerm: String): Single<List<YelpBusiness>> =
             Single.create {
-//                SQLite.select()
-//                        .from(YelpBusiness::class.java)
-//                        .where(YelpBusiness_Table.searchKey.`is`(searchTerm))
-//                        .queryList()
-                TODO()
+                val data = SQLite.select()
+                        .from(YelpBusiness::class.java)
+                        .where(YelpBusiness_Table.searchKey.`is`(searchTerm))
+                        .queryList()
+
+                it.onSuccess(data)
             }
 
     fun lookUpByName(businessLookupRequest: BusinessLookupRequest): Single<List<YelpBusiness>>{
-        TODO("Need to check for internet")
+        if(!serviceChecker.hasInternetAccess()) return cacheLookUpByName(businessLookupRequest.searchTerm)
 
         return newLookUpByName(businessLookupRequest)
     }
@@ -41,12 +46,9 @@ class BusinessLookupService(private val businessContract: BusinessContract) {
                         sortYelpBusinesses(it)
 
                         it.toList()
-                    }.doOnSuccess {
-//                        for (yelpBusiness in yelpBusinesses) {
-//                            yelpBusiness.save()
-//                        }
-                        TODO("cache data")
-                    }
+                    }.doOnSuccess { businesses ->
+                        businesses.forEach { it.save() }
+                    }.subscribeOnIO()
 
 
     private fun getYelpBusinessWithDetails(yelpBusiness: YelpBusiness): Single<YelpBusiness> =
@@ -54,7 +56,7 @@ class BusinessLookupService(private val businessContract: BusinessContract) {
                     .map {
                         yelpBusiness.businessDetails = it
                         yelpBusiness
-                    }
+                    }.subscribeOnIO()
 
     private fun sortYelpBusinesses(yelpBusinesses: List<YelpBusiness>){
         yelpBusinesses.sortedBy { it.businessDetails?.reviewCount }

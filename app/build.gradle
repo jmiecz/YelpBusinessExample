@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
 
-    compileSdkVersion  27
+    compileSdkVersion compile_sdk
 
     defaultConfig {
         applicationId "net.mieczkowski.yelpbusinessexample"
-        minSdkVersion 19
-        targetSdkVersion 27
+        minSdkVersion min_sdk
+        targetSdkVersion target_sdk
         versionCode 2
         versionName "1.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -45,9 +46,7 @@ android {
     }
 }
 
-def androidsupport_version = "27.1.1"
-def retrofit_version = "2.4.0"
-def jackson_version = "2.9.5"
+def conductor_version = '2.1.5'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -61,35 +60,18 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
 
-    implementation "com.android.support:appcompat-v7:$androidsupport_version"
-    implementation "com.android.support:support-annotations:$androidsupport_version"
-    implementation "com.android.support:recyclerview-v7:$androidsupport_version"
-    implementation "com.android.support:design:$androidsupport_version"
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:support-annotations:$support_version"
+    implementation "com.android.support:recyclerview-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
 
     implementation 'com.google.android.gms:play-services-location:15.0.1'
 
-    implementation 'com.bluelinelabs:conductor:2.1.4'
-    implementation 'com.bluelinelabs:conductor-support:2.1.4'
+    implementation "com.bluelinelabs:conductor:$conductor_version"
+    implementation "com.bluelinelabs:conductor-support:$conductor_version"
     implementation 'com.bluelinelabs:conductor-archlifecycle:0.1.1'
 
     implementation 'com.yqritc:recyclerview-flexibledivider:1.4.0'
 
     implementation 'com.squareup.picasso:picasso:2.5.2'
-
-
-    //TODO: Remove these
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-jackson:$retrofit_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
-
-    implementation "com.fasterxml.jackson.core:jackson-databind:$jackson_version"
-    implementation "com.fasterxml.jackson.core:jackson-core:$jackson_version"
-    implementation "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"
-
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
-
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

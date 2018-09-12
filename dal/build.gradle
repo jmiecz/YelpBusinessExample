@@ -1,15 +1,15 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 27
 
-
+    compileSdkVersion compile_sdk
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 27
+        minSdkVersion min_sdk
+        targetSdkVersion target_sdk
         versionCode 1
         versionName "1.0"
 
@@ -28,13 +28,13 @@ android {
 
 def retrofit_version = '2.4.0'
 def jackson_version = '2.9.4'
-def dbflow_version = "4.1.1"
+def dbflow_version = "4.2.4"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation "com.android.support:appcompat-v7:$support_version"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -56,7 +56,7 @@ dependencies {
     api "org.koin:koin-android:$koin_version"
     testImplementation "org.koin:koin-test:$koin_version"
 
-    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:$dbflow_version"
+    kapt "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
     implementation "com.github.Raizlabs.DBFlow:dbflow-core:$dbflow_version"
     implementation "com.github.Raizlabs.DBFlow:dbflow:$dbflow_version"
 

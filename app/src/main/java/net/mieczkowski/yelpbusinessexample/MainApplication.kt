@@ -3,6 +3,7 @@ package net.mieczkowski.yelpbusinessexample
 import android.app.Application
 
 import net.mieczkowski.dal.DAL
+import org.koin.android.ext.android.startKoin
 
 
 /**
@@ -13,7 +14,8 @@ class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        DAL.init(this)
+        startKoin(this, listOf())
+        DAL.startInstance(this)
     }
 
 }

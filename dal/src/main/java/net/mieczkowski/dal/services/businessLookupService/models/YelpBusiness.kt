@@ -6,6 +6,7 @@ import com.raizlabs.android.dbflow.annotation.Column
 import com.raizlabs.android.dbflow.annotation.ForeignKey
 import com.raizlabs.android.dbflow.annotation.PrimaryKey
 import com.raizlabs.android.dbflow.annotation.Table
+import com.raizlabs.android.dbflow.structure.BaseModel
 import net.mieczkowski.dal.cache.LocalDatabase
 
 
@@ -13,9 +14,8 @@ import net.mieczkowski.dal.cache.LocalDatabase
  * Created by Josh Mieczkowski on 9/11/2018.
  */
 
-//TODO : BaseModel
 @Table(database = LocalDatabase::class)
-class YelpBusiness {
+class YelpBusiness: BaseModel() {
 
     @PrimaryKey
     @JsonProperty("id")

@@ -6,16 +6,15 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.raizlabs.android.dbflow.annotation.Column
 import com.raizlabs.android.dbflow.annotation.PrimaryKey
 import com.raizlabs.android.dbflow.annotation.Table
+import com.raizlabs.android.dbflow.structure.BaseModel
 import net.mieczkowski.dal.cache.LocalDatabase
 import net.mieczkowski.dal.exts.convertJsonToList
-import java.util.ArrayList
 
 /**
  * Created by Josh Mieczkowski on 9/11/2018.
  */
-//TODO : BaseModel
 @Table(database = LocalDatabase::class)
-class BusinessDetails {
+class BusinessDetails : BaseModel() {
 
     @Column
     @PrimaryKey
@@ -52,17 +51,17 @@ class BusinessDetails {
 
     @Column
     @JsonIgnore
-    internal var businessPhotosString: String? = null
+    var businessPhotosString: String? = null
 
     @JsonIgnore
     var businessPhotos = listOf<String>()
-    get() {
-        if(field.isEmpty() && businessPhotosString?.isNotEmpty() == true){
-            field = businessPhotosString!!.convertJsonToList()
-        }
+        get() {
+            if (field.isEmpty() && businessPhotosString?.isNotEmpty() == true) {
+                field = businessPhotosString!!.convertJsonToList()
+            }
 
-        return field
-    }
+            return field
+        }
 
     @JsonProperty("photos")
     fun setPhotos(photos: JsonNode) {
