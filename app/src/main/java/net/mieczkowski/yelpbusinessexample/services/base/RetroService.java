@@ -1,6 +1,5 @@
 package net.mieczkowski.yelpbusinessexample.services.base;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -129,7 +128,7 @@ public class RetroService<I> {
                 .readTimeout(30, TimeUnit.SECONDS);
 
         if (allowLogging()) {
-            builder.addNetworkInterceptor(new StethoInterceptor());
+           // builder.addNetworkInterceptor(new StethoInterceptor());
         }
 
         builder.addInterceptor(interceptor);
