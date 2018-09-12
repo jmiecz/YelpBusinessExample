@@ -6,7 +6,6 @@ import com.raizlabs.android.dbflow.sql.language.Delete;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import net.mieczkowski.yelpbusinessexample.interfaces.network.IAuth;
-import net.mieczkowski.yelpbusinessexample.models.auth.YelpAuthRequest;
 import net.mieczkowski.yelpbusinessexample.services.base.BaseService;
 
 import io.reactivex.Single;

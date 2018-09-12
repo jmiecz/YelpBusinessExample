@@ -1,4 +1,4 @@
-package net.mieczkowski.dal.services.authService.models
+package net.mieczkowski.dal.services.businessLookupService.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.raizlabs.android.dbflow.annotation.Column
@@ -10,13 +10,13 @@ import net.mieczkowski.dal.cache.models.PrimaryKey
  * Created by Josh Mieczkowski on 9/11/2018.
  */
 @Table(database = LocalDatabase::class)
-class YelpAuth: PrimaryKey() {
+class BusinessCoordinates: PrimaryKey() {
 
     @Column
-    @JsonProperty("access_token")
-    lateinit var accessToken: String
+    @JsonProperty("latitude")
+    var latitude: Double = 0.0
 
     @Column
-    @JsonProperty("token_type")
-    lateinit var tokenType: String
+    @JsonProperty("longitude")
+    var longitude: Double = 0.0
 }
