@@ -1,14 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+
+    compileSdkVersion  27
+
     defaultConfig {
         applicationId "net.mieczkowski.yelpbusinessexample"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 2
-        versionName "1.0.2"
+        versionName "1.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -42,51 +43,53 @@ android {
     }
 }
 
-def androidSupportVersion = "26.0.2"
+def androidsupport_version = "27.1.1"
 def dbflow_version = "4.1.1"
+def retrofit_version = "2.4.0"
+def jackson_version = "2.9.5"
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 
-    compile "com.android.support:appcompat-v7:${androidSupportVersion}"
-    compile "com.android.support:support-annotations:${androidSupportVersion}"
-    compile "com.android.support:recyclerview-v7:${androidSupportVersion}"
-    compile "com.android.support:design:${androidSupportVersion}"
+    implementation "com.android.support:appcompat-v7:$androidsupport_version"
+    implementation "com.android.support:support-annotations:$androidsupport_version"
+    implementation "com.android.support:recyclerview-v7:$androidsupport_version"
+    implementation "com.android.support:design:$androidsupport_version"
 
-    compile 'com.google.android.gms:play-services-location:11.4.2'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
 
-    compile 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-implementationr:8.8.1'
 
-    compile 'com.bluelinelabs:conductor:2.1.4'
-    compile 'com.bluelinelabs:conductor-support:2.1.4'
-    compile 'com.bluelinelabs:conductor-archlifecycle:0.1.1'
+    implementation 'com.bluelinelabs:conductor:2.1.4'
+    implementation 'com.bluelinelabs:conductor-support:2.1.4'
+    implementation 'com.bluelinelabs:conductor-archlifecycle:0.1.1'
 
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-jackson:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-jackson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
 
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.10'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.8.10'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.10'
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jackson_version"
+    implementation "com.fasterxml.jackson.core:jackson-core:$jackson_version"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"
 
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.5'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
 
-    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
-    compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
-    compile "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:$dbflow_version"
+    implementation "com.github.Raizlabs.DBFlow:dbflow-core:$dbflow_version"
+    implementation "com.github.Raizlabs.DBFlow:dbflow:$dbflow_version"
 
-    compile 'com.facebook.stetho:stetho:1.5.0'
-    compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
 
-    compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
+    implementation 'com.yqritc:recyclerview-flexibledivider:1.4.0'
 
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }
