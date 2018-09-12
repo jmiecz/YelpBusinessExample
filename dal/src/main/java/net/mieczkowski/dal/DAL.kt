@@ -8,6 +8,8 @@ import net.mieczkowski.dal.client.Client
 import net.mieczkowski.dal.client.ClientContract
 import net.mieczkowski.dal.services.authService.AuthContract
 import net.mieczkowski.dal.services.authService.AuthService
+import net.mieczkowski.dal.services.businessLookupService.BusinessContract
+import net.mieczkowski.dal.services.businessLookupService.BusinessLookupService
 import net.mieczkowski.dal.services.locationService.LocationService
 import net.mieczkowski.dal.tools.ServiceChecker
 import org.koin.android.ext.koin.androidContext
@@ -39,6 +41,9 @@ object DAL : KoinComponent {
 
         single { RetrofitFactory.createInstance(getProperty(API_URL_KEY)) as AuthContract }
         factory { AuthService(get(), get()) }
+
+        single { RetrofitFactory.createInstance(getProperty(VERSION_API_KEY)) as BusinessContract }
+        factory { BusinessLookupService(get(), get()) }
     }
 
     fun startInstance(application: Application) {

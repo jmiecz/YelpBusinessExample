@@ -4,7 +4,7 @@ import android.view.ViewGroup
 
 import net.mieczkowski.dal.cache.models.PreviousSearch
 import net.mieczkowski.yelpbusinessexample.R
-import net.mieczkowski.yelpbusinessexample.interfaces.IPreviousSearch
+import net.mieczkowski.yelpbusinessexample.interfaces.PreviousSearchContract
 import net.mieczkowski.yelpbusinessexample.recyclerAdapters.base.BaseAdapter
 import net.mieczkowski.yelpbusinessexample.recyclerAdapters.base.BaseViewHolder
 
@@ -12,14 +12,14 @@ import net.mieczkowski.yelpbusinessexample.recyclerAdapters.base.BaseViewHolder
  * Created by Josh Mieczkowski on 10/20/2017.
  */
 
-class SearchHistoryAdapter(objects: List<PreviousSearch>, private val iPreviousSearch: IPreviousSearch) : BaseAdapter<PreviousSearch>(objects) {
+class SearchHistoryAdapter(objects: List<PreviousSearch>, private val previousSearchContract: PreviousSearchContract) : BaseAdapter<PreviousSearch>(objects) {
 
     companion object {
 
-        fun newInstance(iPreviousSearch: IPreviousSearch): SearchHistoryAdapter {
+        fun newInstance(previousSearchContract: PreviousSearchContract): SearchHistoryAdapter {
             return SearchHistoryAdapter(
                     PreviousSearch.getPreviousSearches(),
-                    iPreviousSearch
+                    previousSearchContract
             )
         }
     }
@@ -32,7 +32,7 @@ class SearchHistoryAdapter(objects: List<PreviousSearch>, private val iPreviousS
         super.onRowClick(position)
 
         val previousSearch = objects[position]
-        iPreviousSearch.onPreviousSearchClicked(previousSearch)
+        previousSearchContract.onPreviousSearchClicked(previousSearch)
     }
 
 

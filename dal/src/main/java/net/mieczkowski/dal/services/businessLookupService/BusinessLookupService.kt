@@ -47,7 +47,7 @@ class BusinessLookupService(private val businessContract: BusinessContract, priv
 
                         it.toList()
                     }.doOnSuccess { businesses ->
-                        businesses.forEach { it.save() }
+                        //businesses.forEach { it.save() }
                     }.subscribeOnIO()
 
 

@@ -23,11 +23,6 @@ android {
         }
     }
 
-    buildTypes.each {
-        it.buildConfigField 'String', 'YELP_CLIENT_ID', yelpClientID
-        it.buildConfigField 'String', 'YELP_CLIENT_SECRET', yelpClientSecret
-    }
-
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'

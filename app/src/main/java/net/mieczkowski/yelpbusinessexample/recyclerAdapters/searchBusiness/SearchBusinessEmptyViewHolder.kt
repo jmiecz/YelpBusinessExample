@@ -11,7 +11,7 @@ import net.mieczkowski.yelpbusinessexample.recyclerAdapters.base.BaseViewHolder
 
 class SearchBusinessEmptyViewHolder(itemView: View) : BaseViewHolder<YelpBusiness>(itemView) {
 
-    override fun onBind(item: YelpBusiness) {
+    override fun onBind(item: YelpBusiness?) {
 
     }
 }

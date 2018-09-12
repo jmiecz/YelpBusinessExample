@@ -14,7 +14,7 @@ class SearchHistoryViewHolder(itemView: View) : BaseViewHolder<PreviousSearch>(i
 
     val txtSearchHistory: TextView = itemView.txtSearchHistory
 
-    override fun onBind(item: PreviousSearch) {
-        txtSearchHistory.text = item.searchTerm
+    override fun onBind(item: PreviousSearch?) {
+        txtSearchHistory.text = item?.searchTerm
     }
 }

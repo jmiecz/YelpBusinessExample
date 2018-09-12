@@ -28,6 +28,6 @@ abstract class BaseViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemV
         return true
     }
 
-    abstract fun onBind(item: T)
+    abstract fun onBind(item: T?)
 
 }

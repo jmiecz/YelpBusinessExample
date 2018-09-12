@@ -20,7 +20,7 @@ import io.reactivex.subjects.PublishSubject
  */
 class LocationService(context: Context) {
 
-    class MissingFineLocationError: Throwable("Missing Fine Location Permission")
+    class MissingFineLocationError: Throwable("Missing Coarse Location Permission")
 
     private val locationClient = LocationServices.getFusedLocationProviderClient(context)
 
@@ -28,8 +28,8 @@ class LocationService(context: Context) {
     private val locationSubject: PublishSubject<Location> = PublishSubject.create()
     private var locationRequest = LocationRequest().apply {
         interval = 10000
-        fastestInterval = 5000
-        priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        fastestInterval = 0
+        priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
     }
 
     private var locationCallBack: LocationCallback = object : LocationCallback(){
@@ -52,7 +52,7 @@ class LocationService(context: Context) {
     @SuppressLint("MissingPermission")
     fun getLocationObserver(): Observable<Location> {
         return if (ContextCompat.checkSelfPermission(locationClient.applicationContext,
-                        Manifest.permission.ACCESS_FINE_LOCATION)
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             Observable.error(MissingFineLocationError())
 
@@ -70,6 +70,7 @@ class LocationService(context: Context) {
                         if(obsCount == 0)
                             locationClient.removeLocationUpdates(locationCallBack)
                     }
+                    .doOnError { it.printStackTrace() }
         }
     }
 }

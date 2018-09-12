@@ -14,9 +14,8 @@ import net.mieczkowski.dal.exts.convertJsonToList
  * Created by Josh Mieczkowski on 9/11/2018.
  */
 @Table(database = LocalDatabase::class)
-class BusinessDetails : BaseModel() {
+class BusinessDetails {
 
-    @Column
     @PrimaryKey
     @JsonProperty("id")
     lateinit var id: String

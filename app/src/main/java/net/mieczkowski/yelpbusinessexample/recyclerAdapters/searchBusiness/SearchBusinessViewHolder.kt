@@ -6,7 +6,6 @@ import android.support.v4.graphics.drawable.DrawableCompat
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_seach_business.view.*
 import net.mieczkowski.dal.services.businessLookupService.models.YelpBusiness
 import net.mieczkowski.yelpbusinessexample.R
@@ -25,9 +24,7 @@ class SearchBusinessViewHolder(itemView: View) : BaseViewHolder<YelpBusiness>(it
     val txtRatings: TextView = itemView.txtRatings
     val txtReviewCount: TextView = itemView.txtReviewCount
 
-
     init {
-
         ContextCompat.getDrawable(itemView.context, R.drawable.ic_star_rate_white_18dp)?.let {
             val ratingsDrawable = DrawableCompat.wrap(it)
 
@@ -43,12 +40,15 @@ class SearchBusinessViewHolder(itemView: View) : BaseViewHolder<YelpBusiness>(it
         }
     }
 
-    override fun onBind(item: YelpBusiness) {
-        imgIcon.loadUrl(item.businessDetails?.imgUrl)
+    override fun onBind(item: YelpBusiness?) {
+        item?.let {
+            imgIcon.loadUrl(it.businessDetails?.imgUrl)
 
-        txtTitle.text = item.name
+            txtTitle.text = it.name
 
-        txtRatings.text = item.businessDetails?.rating.toString()
-        txtReviewCount.text = item.businessDetails?.reviewCount.toString()
+            txtRatings.text = it.businessDetails?.rating.toString()
+            txtReviewCount.text = it.businessDetails?.reviewCount.toString()
+        }
+
     }
 }

@@ -15,7 +15,7 @@ import net.mieczkowski.dal.cache.LocalDatabase
  */
 
 @Table(database = LocalDatabase::class)
-class YelpBusiness: BaseModel() {
+class YelpBusiness {
 
     @PrimaryKey
     @JsonProperty("id")

@@ -11,7 +11,7 @@ import net.mieczkowski.dal.cache.LocalDatabase
  * Created by Josh Mieczkowski on 9/11/2018.
  */
 @Table(database = LocalDatabase::class)
-class PreviousSearch: BaseModel() {
+class PreviousSearch {
 
     companion object {
 

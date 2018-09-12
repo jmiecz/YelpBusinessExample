@@ -24,11 +24,20 @@ android {
         }
     }
 
+    buildTypes.each {
+        it.buildConfigField 'String', 'YELP_CLIENT_ID', yelpClientID
+        it.buildConfigField 'String', 'YELP_CLIENT_SECRET', yelpClientSecret
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
 }
 
 def retrofit_version = '2.4.0'
 def jackson_version = '2.9.4'
-def dbflow_version = "4.2.4"
+def dbflow_version = '4.2.4'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -56,7 +65,7 @@ dependencies {
     api "org.koin:koin-android:$koin_version"
     testImplementation "org.koin:koin-test:$koin_version"
 
-    kapt "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+    kapt "com.github.Raizlabs.DBFlow:dbflow-processor:$dbflow_version"
     implementation "com.github.Raizlabs.DBFlow:dbflow-core:$dbflow_version"
     implementation "com.github.Raizlabs.DBFlow:dbflow:$dbflow_version"
 
