@@ -8,10 +8,10 @@ import com.yqritc.recyclerviewflexibledivider.VerticalDividerItemDecoration
 /**
  * Created by Josh Mieczkowski on 9/12/2018.
  */
-fun RecyclerView.addDividerLine(builder: (HorizontalDividerItemDecoration.Builder) -> HorizontalDividerItemDecoration.Builder){
+fun RecyclerView.addDividerLine(builder: (HorizontalDividerItemDecoration.Builder) -> HorizontalDividerItemDecoration.Builder) {
     addItemDecoration(builder(HorizontalDividerItemDecoration.Builder(context)).build())
 }
 
-fun RecyclerView.addVerticalDividerLine(builder: (VerticalDividerItemDecoration.Builder) -> VerticalDividerItemDecoration.Builder){
+fun RecyclerView.addVerticalDividerLine(builder: (VerticalDividerItemDecoration.Builder) -> VerticalDividerItemDecoration.Builder) {
     addItemDecoration(builder(VerticalDividerItemDecoration.Builder(context)).build())
 }

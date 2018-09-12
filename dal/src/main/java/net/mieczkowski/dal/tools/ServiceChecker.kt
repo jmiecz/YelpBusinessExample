@@ -10,7 +10,7 @@ import android.telephony.TelephonyManager
  */
 class ServiceChecker(context: Context) {
 
-    enum class ConnectionType(val type: String){
+    enum class ConnectionType(val type: String) {
         Wifi("WIFI"),
         Mobile("MOBILE")
     }
@@ -19,7 +19,7 @@ class ServiceChecker(context: Context) {
     private val telephonyManager: TelephonyManager? = context.applicationContext.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager?
     private val wifiManager: WifiManager? = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager?
 
-    fun hasInternetAccess(): Boolean{
+    fun hasInternetAccess(): Boolean {
         return connectivityManager?.let {
             val activeNetworkInfo = it.activeNetworkInfo
             activeNetworkInfo != null && activeNetworkInfo.isAvailable && activeNetworkInfo.isConnected
@@ -30,10 +30,10 @@ class ServiceChecker(context: Context) {
 
     fun isMobileActivieNetwork(): Boolean = hasInternetAccess() && getConnectionType() == ConnectionType.Mobile
 
-    private fun getConnectionType(): ConnectionType?{
-        if(hasInternetAccess()){
+    private fun getConnectionType(): ConnectionType? {
+        if (hasInternetAccess()) {
             connectivityManager?.activeNetworkInfo?.let {
-                return when(it.type){
+                return when (it.type) {
                     ConnectivityManager.TYPE_WIFI -> ConnectionType.Wifi
                     ConnectivityManager.TYPE_MOBILE -> ConnectionType.Mobile
                     else -> null

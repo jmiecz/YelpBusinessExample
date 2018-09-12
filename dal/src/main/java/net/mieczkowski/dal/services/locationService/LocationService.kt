@@ -20,7 +20,7 @@ import io.reactivex.subjects.PublishSubject
  */
 class LocationService(context: Context) {
 
-    class MissingFineLocationError: Throwable("Missing Coarse Location Permission")
+    class MissingFineLocationError : Throwable("Missing Coarse Location Permission")
 
     private val locationClient = LocationServices.getFusedLocationProviderClient(context)
 
@@ -32,7 +32,7 @@ class LocationService(context: Context) {
         priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
     }
 
-    private var locationCallBack: LocationCallback = object : LocationCallback(){
+    private var locationCallBack: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult?) {
             locationResult ?: return
             locationResult.locations.forEach {
@@ -41,7 +41,7 @@ class LocationService(context: Context) {
         }
     }
 
-    fun configureLocationSettings(settings: LocationRequest.() -> Unit): LocationService{
+    fun configureLocationSettings(settings: LocationRequest.() -> Unit): LocationService {
         settings(locationRequest)
 
         return this
@@ -56,10 +56,10 @@ class LocationService(context: Context) {
                 != PackageManager.PERMISSION_GRANTED) {
             Observable.error(MissingFineLocationError())
 
-        }else{
+        } else {
             locationSubject.subscribeOn(Schedulers.io())
                     .doOnSubscribe {
-                        if(obsCount == 0)
+                        if (obsCount == 0)
                             locationClient.requestLocationUpdates(locationRequest, locationCallBack, null)
 
                         obsCount++
@@ -67,7 +67,7 @@ class LocationService(context: Context) {
                     .doOnDispose {
                         obsCount--
 
-                        if(obsCount == 0)
+                        if (obsCount == 0)
                             locationClient.removeLocationUpdates(locationCallBack)
                     }
                     .doOnError { it.printStackTrace() }

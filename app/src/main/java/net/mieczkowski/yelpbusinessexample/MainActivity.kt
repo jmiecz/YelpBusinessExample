@@ -10,19 +10,13 @@ import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import kotlinx.android.synthetic.main.activity_main.*
-import net.mieczkowski.dal.services.authService.AuthService
-import net.mieczkowski.dal.tools.ServiceChecker
 import net.mieczkowski.yelpbusinessexample.controllers.LocationController
 import net.mieczkowski.yelpbusinessexample.controllers.SearchContractController
 import net.mieczkowski.yelpbusinessexample.interfaces.IToolbar
-import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), IToolbar {
 
     private lateinit var router: Router
-
-    private val serviceChecker: ServiceChecker by inject()
-    private val authService: AuthService by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +34,6 @@ class MainActivity : AppCompatActivity(), IToolbar {
         if (!router.hasRootController()) {
             router.setRoot(RouterTransaction.with(rootController))
         }
-
-        //They might of removed this api
-//        if (serviceChecker.hasInternetAccess()) {
-//            authService.getYelpAuth().subscribe()
-//        }
 
     }
 

@@ -1,13 +1,10 @@
 package net.mieczkowski.dal
 
 import android.app.Application
+import com.facebook.stetho.Stetho
 import com.raizlabs.android.dbflow.config.FlowManager
-import net.mieczkowski.dal.cache.TokenCacheContract
-import net.mieczkowski.dal.cache.TokenCacheService
 import net.mieczkowski.dal.client.Client
 import net.mieczkowski.dal.client.ClientContract
-import net.mieczkowski.dal.services.authService.AuthContract
-import net.mieczkowski.dal.services.authService.AuthService
 import net.mieczkowski.dal.services.businessLookupService.BusinessContract
 import net.mieczkowski.dal.services.businessLookupService.BusinessLookupService
 import net.mieczkowski.dal.services.locationService.LocationService
@@ -35,12 +32,7 @@ object DAL : KoinComponent {
     }
 
     private val networkModule = module {
-        single { Client(androidContext(), get()) as ClientContract }
-
-        single { TokenCacheService() as TokenCacheContract }
-
-        single { RetrofitFactory.createInstance(getProperty(API_URL_KEY)) as AuthContract }
-        factory { AuthService(get(), get()) }
+        single { Client(androidContext()) as ClientContract }
 
         single { RetrofitFactory.createInstance(getProperty(VERSION_API_KEY)) as BusinessContract }
         factory { BusinessLookupService(get(), get()) }
@@ -48,7 +40,7 @@ object DAL : KoinComponent {
 
     fun startInstance(application: Application) {
         FlowManager.init(application)
-        //Stetho.initializeWithDefaults(application)
+        Stetho.initializeWithDefaults(application)
 
         StandAloneContext.loadProperties(extraProperties = mapOf(
                 API_URL_KEY to BASE_URL,

@@ -11,7 +11,7 @@ import net.mieczkowski.dal.cache.LocalDatabase
  * Created by Josh Mieczkowski on 9/11/2018.
  */
 @Table(database = LocalDatabase::class)
-class BusinessLocation: BaseModel() {
+class BusinessLocation : BaseModel() {
 
     @PrimaryKey(autoincrement = true)
     var _id: Long = 0L

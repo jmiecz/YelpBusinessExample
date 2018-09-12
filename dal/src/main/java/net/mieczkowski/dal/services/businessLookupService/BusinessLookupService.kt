@@ -24,8 +24,8 @@ class BusinessLookupService(private val businessContract: BusinessContract, priv
                 it.onSuccess(data)
             }
 
-    fun lookUpByName(businessLookupRequest: BusinessLookupRequest): Single<List<YelpBusiness>>{
-        if(!serviceChecker.hasInternetAccess()) return cacheLookUpByName(businessLookupRequest.searchTerm)
+    fun lookUpByName(businessLookupRequest: BusinessLookupRequest): Single<List<YelpBusiness>> {
+        if (!serviceChecker.hasInternetAccess()) return cacheLookUpByName(businessLookupRequest.searchTerm)
 
         return newLookUpByName(businessLookupRequest)
     }
@@ -58,7 +58,7 @@ class BusinessLookupService(private val businessContract: BusinessContract, priv
                         yelpBusiness
                     }.subscribeOnIO()
 
-    private fun sortYelpBusinesses(yelpBusinesses: List<YelpBusiness>){
+    private fun sortYelpBusinesses(yelpBusinesses: List<YelpBusiness>) {
         yelpBusinesses.sortedBy { it.businessDetails?.reviewCount }
         yelpBusinesses.sortedBy { it.businessDetails?.rating }
     }

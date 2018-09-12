@@ -4,7 +4,6 @@ import com.raizlabs.android.dbflow.annotation.Column
 import com.raizlabs.android.dbflow.annotation.PrimaryKey
 import com.raizlabs.android.dbflow.annotation.Table
 import com.raizlabs.android.dbflow.sql.language.SQLite
-import com.raizlabs.android.dbflow.structure.BaseModel
 import net.mieczkowski.dal.cache.LocalDatabase
 
 /**
@@ -17,7 +16,7 @@ class PreviousSearch {
 
         private const val SEARCH_LIMIT = 10
 
-        fun getPreviousSearches(): List<PreviousSearch>{
+        fun getPreviousSearches(): List<PreviousSearch> {
             return SQLite.select()
                     .from(PreviousSearch::class.java)
                     .orderBy(PreviousSearch_Table._id, false)

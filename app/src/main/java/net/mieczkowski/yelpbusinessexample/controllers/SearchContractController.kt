@@ -56,7 +56,7 @@ class SearchContractController(args: Bundle? = null) : BaseController(args), Pre
     private var currentSearch: String? = null
     private var currentQuery: String? = null
 
-    private var filter: InputFilter = InputFilter { source, start, end, dest, dstart, dend ->
+    private var filter: InputFilter = InputFilter { source, start, end, _, _, _ ->
         for (index in start until end) {
             val toCheck = source[index]
             if (allowChars.contains(toCheck))
@@ -140,7 +140,7 @@ class SearchContractController(args: Bundle? = null) : BaseController(args), Pre
         })
     }
 
-    private fun setMyLocation(location: Location){
+    private fun setMyLocation(location: Location) {
         myLocation = MyLocation(location.latitude, location.longitude)
     }
 
@@ -271,7 +271,7 @@ class SearchContractController(args: Bundle? = null) : BaseController(args), Pre
         myLocation?.let {
             businessDisposable?.dispose()
             businessDisposable = businessLookupService.lookUpByName(BusinessLookupRequest(search, it))
-                    .observeOn(AndroidSchedulers.mainThread())
+                    .observeOnMain()
                     .subscribe({
                         setSearchBusinessAdapter(it)
                     }, {
@@ -292,8 +292,6 @@ class SearchContractController(args: Bundle? = null) : BaseController(args), Pre
         }
 
     }
-
-
 
 
 }
