@@ -1,6 +1,5 @@
 package net.mieczkowski.yelpbusinessexample.mockedData;
 
-import net.mieczkowski.yelpbusinessexample.models.auth.YelpAuth;
 import net.mieczkowski.yelpbusinessexample.interfaces.network.IAuth;
 import net.mieczkowski.yelpbusinessexample.services.base.RetroService;
 

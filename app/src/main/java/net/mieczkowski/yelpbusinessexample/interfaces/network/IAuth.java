@@ -1,7 +1,5 @@
 package net.mieczkowski.yelpbusinessexample.interfaces.network;
 
-import net.mieczkowski.yelpbusinessexample.models.auth.YelpAuth;
-
 import io.reactivex.Single;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

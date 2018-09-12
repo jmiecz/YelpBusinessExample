@@ -14,11 +14,11 @@ import retrofit2.http.Query;
 
 public interface IBusiness {
 
-    @GET(IYelp.VERSION + "businesses/search")
+    @GET(YelpInfo.Companion.getVERSION() + "businesses/search")
     Single<YelpBusinessWrapper> lookUpBusiness(@Query("term") String search,
                                                @Query("latitude") double latitude,
                                                @Query("longitude") double longitude);
 
-    @GET(IYelp.VERSION + "businesses/{id}")
+    @GET(YelpInfo.Companion.getVERSION() + "businesses/{id}")
     Single<BusinessDetails> getBusinessDetails(@Path("id") String businessID);
 }

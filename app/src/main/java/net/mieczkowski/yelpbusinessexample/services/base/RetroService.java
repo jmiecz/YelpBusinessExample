@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.mieczkowski.yelpbusinessexample.models.auth.YelpAuth;
 import net.mieczkowski.yelpbusinessexample.services.YelpAuthService;
 
 import java.io.IOException;

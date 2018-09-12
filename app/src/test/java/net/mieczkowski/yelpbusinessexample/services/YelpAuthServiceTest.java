@@ -1,7 +1,6 @@
 package net.mieczkowski.yelpbusinessexample.services;
 
 import net.mieczkowski.yelpbusinessexample.mockedData.MockedAuthData;
-import net.mieczkowski.yelpbusinessexample.models.auth.YelpAuth;
 
 import org.junit.Before;
 import org.junit.Test;

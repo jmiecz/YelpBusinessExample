@@ -1,7 +1,5 @@
 package net.mieczkowski.yelpbusinessexample.services.base;
 
-import net.mieczkowski.yelpbusinessexample.interfaces.network.IYelp;
-
 /**
  * Created by Josh Mieczkowski on 10/19/2017.
  */
@@ -15,7 +13,7 @@ public abstract class BaseService<I> {
     }
 
     public BaseService() {
-        iDal = new RetroService<>(getInterfaceClass(), IYelp.API_URL).getRetroInterface();
+        iDal = new RetroService<>(getInterfaceClass(), YelpInfo.INSTANCE.getAPI_URL()).getRetroInterface();
     }
 
     public BaseService(I iDal) {
