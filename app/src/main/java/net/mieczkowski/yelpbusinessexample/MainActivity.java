@@ -16,7 +16,6 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import net.mieczkowski.yelpbusinessexample.controllers.LocationController;
 import net.mieczkowski.yelpbusinessexample.controllers.SearchController;
 import net.mieczkowski.yelpbusinessexample.interfaces.IToolbar;
-import net.mieczkowski.yelpbusinessexample.services.YelpAuthService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements IToolbar {
             router.setRoot(RouterTransaction.with(rootController));
         }
 
-        if (MyApplication.getServiceChecker().isConnected()) {
+        if (MainApplication.getServiceChecker().isConnected()) {
             new YelpAuthService().getYelpAuth().subscribe();
         }
 

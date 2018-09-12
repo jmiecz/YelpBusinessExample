@@ -19,7 +19,7 @@ class YelpBusiness {
 
     @PrimaryKey
     @JsonProperty("id")
-    var id: String? = null
+    lateinit var id: String
 
     @Column
     @JsonProperty("name")

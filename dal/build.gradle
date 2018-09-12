@@ -52,8 +52,8 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-databind:$jackson_version"
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version"
 
-    implementation "org.koin:koin-core:$koin_version"
-    implementation "org.koin:koin-android:$koin_version"
+    api "org.koin:koin-core:$koin_version"
+    api "org.koin:koin-android:$koin_version"
     testImplementation "org.koin:koin-test:$koin_version"
 
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:$dbflow_version"
@@ -62,4 +62,6 @@ dependencies {
 
     implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
 }

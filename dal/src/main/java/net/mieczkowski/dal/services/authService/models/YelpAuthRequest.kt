@@ -9,7 +9,7 @@ class YelpAuthRequest {
 
     val grantType = "client_credentials"
 
-//    val clientID = BuildConfig.YELP_CLIENT_ID
-//
-//    val clientSecret = BuildConfig.YELP_CLIENT_SECRET
+    val clientID = "" //BuildConfig.YELP_CLIENT_ID
+
+    val clientSecret = "" //BuildConfig.YELP_CLIENT_SECRET
 }
