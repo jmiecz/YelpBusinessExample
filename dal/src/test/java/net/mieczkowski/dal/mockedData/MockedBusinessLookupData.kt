@@ -15,7 +15,7 @@ import java.io.IOException
 
 class MockedBusinessLookupData : BusinessContract {
 
-    override fun lookUpBusiness(@Query("term") search: String, @Query("latitude") latitude: Double, @Query("longitude") longitude: Double): Single<YelpBusinessWrapper> {
+    override fun lookUpBusiness(search: String, latitude: Double, longitude: Double): Single<YelpBusinessWrapper> {
         val json = "{\n" +
                 "\t\"businesses\": [{\n" +
                 "\t\t\"name\": \"Gary Danko\",\n" +
@@ -59,7 +59,7 @@ class MockedBusinessLookupData : BusinessContract {
         return Single.just(yelpBusinessWrapper)
     }
 
-    override fun getBusinessDetails(@Path("id") businessID: String): Single<BusinessDetails> {
+    override fun getBusinessDetails(businessID: String): Single<BusinessDetails> {
         val json = "{\n" +
                 "\t\"id\": \"gary-danko-san-francisco\",\n" +
                 "\t\"name\": \"Gary Danko\",\n" +

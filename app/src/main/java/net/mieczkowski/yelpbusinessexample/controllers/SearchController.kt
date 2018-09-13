@@ -37,7 +37,7 @@ import org.koin.standalone.inject
  * Created by Josh Mieczkowski on 10/19/2017.
  */
 
-class SearchContractController(args: Bundle? = null) : BaseController(args), PreviousSearchContract {
+class SearchController(args: Bundle? = null) : BaseController(args), PreviousSearchContract {
 
     private val SEARCH_SAVE = "searchSave"
     private val CURRENT_QUERY = "currentQuery"

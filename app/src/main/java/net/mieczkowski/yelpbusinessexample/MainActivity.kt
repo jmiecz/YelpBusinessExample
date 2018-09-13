@@ -11,7 +11,7 @@ import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import kotlinx.android.synthetic.main.activity_main.*
 import net.mieczkowski.yelpbusinessexample.controllers.LocationController
-import net.mieczkowski.yelpbusinessexample.controllers.SearchContractController
+import net.mieczkowski.yelpbusinessexample.controllers.SearchController
 import net.mieczkowski.yelpbusinessexample.interfaces.IToolbar
 
 class MainActivity : AppCompatActivity(), IToolbar {
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), IToolbar {
         val rootController: Controller = if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             LocationController()
         } else {
-            SearchContractController()
+            SearchController()
         }
 
         router = Conductor.attachRouter(this, controllerContainer, savedInstanceState)

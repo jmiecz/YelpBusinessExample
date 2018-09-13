@@ -41,7 +41,7 @@ class LocationController : BaseController() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                router.setRoot(RouterTransaction.with(SearchContractController()))
+                router.setRoot(RouterTransaction.with(SearchController()))
             }
         }
     }
