@@ -1,0 +1,77 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+
+    compileSdkVersion compile_sdk
+
+    defaultConfig {
+        minSdkVersion min_sdk
+        targetSdkVersion target_sdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildTypes.each {
+        it.buildConfigField 'String', 'YELP_CLIENT_ID', yelpClientID
+        it.buildConfigField 'String', 'YELP_CLIENT_SECRET', yelpClientSecret
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+}
+
+def retrofit_version = '2.4.0'
+def jackson_version = '2.9.4'
+def dbflow_version = '4.2.4'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation "com.android.support:appcompat-v7:$support_version"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    testImplementation "org.robolectric:robolectric:$robolectric_version"
+
+    api "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    api "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-jackson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-wire:$retrofit_version"
+
+    implementation "com.fasterxml.jackson.core:jackson-core:$jackson_version"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jackson_version"
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version"
+
+    api "org.koin:koin-core:$koin_version"
+    api "org.koin:koin-android:$koin_version"
+    testImplementation "org.koin:koin-test:$koin_version"
+
+    kapt "com.github.Raizlabs.DBFlow:dbflow-processor:$dbflow_version"
+    api "com.github.Raizlabs.DBFlow:dbflow-core:$dbflow_version"
+    api "com.github.Raizlabs.DBFlow:dbflow:$dbflow_version"
+
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
+}

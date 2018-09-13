@@ -1,25 +1,38 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.objectboxVersion = '1.1.0'
+
+    ext.kotlin_version = '1.2.61'
+    ext.rxjava_version = '2.1.9'
+    ext.rxandroid_version = '2.0.2'
+    ext.koin_version = '1.0.0-RC-3'
+    ext.robolectric_version = '3.8'
+
+    ext.support_version = '27.1.1'
+
+    ext.compile_sdk = 27
+    ext.min_sdk = 21
+    ext.target_sdk = 27
+
     repositories {
+        google()
         jcenter()
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        classpath 'com.google.gms:google-services:4.0.1'
     }
 }
 
 allprojects {
     repositories {
-        maven {
-            url "https://maven.google.com"
-        }
-        maven { url "https://www.jitpack.io" }
+        google()
+        mavenCentral()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 }
 
