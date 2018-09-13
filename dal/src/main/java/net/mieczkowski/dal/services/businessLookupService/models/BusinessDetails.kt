@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.raizlabs.android.dbflow.annotation.Column
 import com.raizlabs.android.dbflow.annotation.PrimaryKey
 import com.raizlabs.android.dbflow.annotation.Table
+import com.raizlabs.android.dbflow.structure.BaseModel
 import net.mieczkowski.dal.cache.LocalDatabase
 import net.mieczkowski.dal.exts.convertJsonToList
 
@@ -13,7 +14,7 @@ import net.mieczkowski.dal.exts.convertJsonToList
  * Created by Josh Mieczkowski on 9/11/2018.
  */
 @Table(database = LocalDatabase::class)
-class BusinessDetails {
+class BusinessDetails : BaseModel() {
 
     @PrimaryKey
     @JsonProperty("id")

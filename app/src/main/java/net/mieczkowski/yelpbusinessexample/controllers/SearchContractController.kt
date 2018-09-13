@@ -178,7 +178,7 @@ class SearchContractController(args: Bundle? = null) : BaseController(args), Pre
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 val previousSearch = PreviousSearch().apply { searchTerm = query }
-                //previousSearch.save()
+                previousSearch.save()
 
                 searchHistoryAdapter?.addItem(previousSearch, 0)
 
@@ -260,13 +260,13 @@ class SearchContractController(args: Bundle? = null) : BaseController(args), Pre
         }
     }
 
-    private fun setSearchBusinessAdapter(yelpBusinesses: List<YelpBusiness>) {
+    private fun setSearchBusinessAdapter(YelpBusinesss: List<YelpBusiness>) {
         view?.layoutRefresh?.let {
             it.isRefreshing = false
             it.isEnabled = true
         }
 
-        searchBusinessAdapter = SearchBusinessAdapter(yelpBusinesses)
+        searchBusinessAdapter = SearchBusinessAdapter(YelpBusinesss)
         view?.recyclerView?.adapter = searchBusinessAdapter
     }
 

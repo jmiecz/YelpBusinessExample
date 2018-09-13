@@ -9,13 +9,11 @@ import com.raizlabs.android.dbflow.annotation.Table
 import com.raizlabs.android.dbflow.structure.BaseModel
 import net.mieczkowski.dal.cache.LocalDatabase
 
-
 /**
- * Created by Josh Mieczkowski on 9/11/2018.
+ * Created by Josh Mieczkowski on 9/12/2018.
  */
-
 @Table(database = LocalDatabase::class)
-class YelpBusiness : BaseModel() {
+class YelpBusiness : BaseModel(){
 
     @PrimaryKey
     @JsonProperty("id")

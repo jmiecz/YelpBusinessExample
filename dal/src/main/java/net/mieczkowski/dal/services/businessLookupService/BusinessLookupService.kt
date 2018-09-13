@@ -32,7 +32,7 @@ class BusinessLookupService(private val businessContract: BusinessContract, priv
 
     private fun newLookUpByName(businessLookupRequest: BusinessLookupRequest): Single<List<YelpBusiness>> =
             businessContract.lookUpBusiness(businessLookupRequest.searchTerm, businessLookupRequest.location.latitude, businessLookupRequest.location.longitude)
-                    .map { it.yelpBusinesses }
+                    .map { it.YelpBusinesss }
                     .toFlowable().flatMap { Flowable.fromIterable(it) }
                     .concatMap { getYelpBusinessWithDetails(it).toFlowable() }
                     .toList().map { oldList ->
@@ -47,19 +47,19 @@ class BusinessLookupService(private val businessContract: BusinessContract, priv
 
                         it.toList()
                     }.doOnSuccess { businesses ->
-                        //businesses.forEach { it.save() }
+                        businesses.forEach { it.save() }
                     }.subscribeOnIO()
 
 
-    private fun getYelpBusinessWithDetails(yelpBusiness: YelpBusiness): Single<YelpBusiness> =
-            businessContract.getBusinessDetails(yelpBusiness.id)
+    private fun getYelpBusinessWithDetails(YelpBusiness: YelpBusiness): Single<YelpBusiness> =
+            businessContract.getBusinessDetails(YelpBusiness.id)
                     .map {
-                        yelpBusiness.businessDetails = it
-                        yelpBusiness
+                        YelpBusiness.businessDetails = it
+                        YelpBusiness
                     }.subscribeOnIO()
 
-    private fun sortYelpBusinesses(yelpBusinesses: List<YelpBusiness>) {
-        yelpBusinesses.sortedBy { it.businessDetails?.reviewCount }
-        yelpBusinesses.sortedBy { it.businessDetails?.rating }
+    private fun sortYelpBusinesses(YelpBusinesss: List<YelpBusiness>) {
+        YelpBusinesss.sortedBy { it.businessDetails?.reviewCount }
+        YelpBusinesss.sortedBy { it.businessDetails?.rating }
     }
 }

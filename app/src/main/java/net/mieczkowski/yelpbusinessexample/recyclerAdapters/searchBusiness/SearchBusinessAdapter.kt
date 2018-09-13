@@ -1,8 +1,8 @@
 package net.mieczkowski.yelpbusinessexample.recyclerAdapters.searchBusiness
 
 import android.view.ViewGroup
-
 import net.mieczkowski.dal.services.businessLookupService.models.YelpBusiness
+
 import net.mieczkowski.yelpbusinessexample.R
 import net.mieczkowski.yelpbusinessexample.recyclerAdapters.base.BaseAdapter
 import net.mieczkowski.yelpbusinessexample.recyclerAdapters.base.BaseViewHolder

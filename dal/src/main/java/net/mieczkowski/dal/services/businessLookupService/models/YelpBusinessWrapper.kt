@@ -9,5 +9,5 @@ import java.util.*
 class YelpBusinessWrapper {
 
     @JsonProperty("businesses")
-    lateinit var yelpBusinesses: ArrayList<YelpBusiness>
+    lateinit var YelpBusinesss: ArrayList<YelpBusiness>
 }
