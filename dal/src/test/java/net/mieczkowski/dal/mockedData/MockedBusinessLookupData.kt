@@ -1,25 +1,22 @@
-package net.mieczkowski.yelpbusinessexample.mockedData;
+package net.mieczkowski.dal.mockedData
 
-import net.mieczkowski.yelpbusinessexample.models.business.BusinessDetails;
-import net.mieczkowski.yelpbusinessexample.models.business.YelpBusinessWrapper;
-import net.mieczkowski.yelpbusinessexample.interfaces.network.IBusiness;
-import net.mieczkowski.yelpbusinessexample.services.base.RetroService;
-
-import java.io.IOException;
-
-import io.reactivex.Single;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
+import io.reactivex.Single
+import net.mieczkowski.dal.RetrofitFactory
+import net.mieczkowski.dal.services.businessLookupService.BusinessContract
+import net.mieczkowski.dal.services.businessLookupService.models.BusinessDetails
+import net.mieczkowski.dal.services.businessLookupService.models.YelpBusinessWrapper
+import retrofit2.http.Path
+import retrofit2.http.Query
+import java.io.IOException
 
 /**
  * Created by Josh Mieczkowski on 10/19/2017.
  */
 
-public class MockedBusinessLookupData implements IBusiness{
+class MockedBusinessLookupData : BusinessContract {
 
-    @Override
-    public Single<YelpBusinessWrapper> lookUpBusiness(@Query("term") String search, @Query("latitude") double latitude, @Query("longitude") double longitude) {
-        String json = "{\n" +
+    override fun lookUpBusiness(@Query("term") search: String, @Query("latitude") latitude: Double, @Query("longitude") longitude: Double): Single<YelpBusinessWrapper> {
+        val json = "{\n" +
                 "\t\"businesses\": [{\n" +
                 "\t\t\"name\": \"Gary Danko\",\n" +
                 "\t\t\"location\": {\n" +
@@ -56,20 +53,14 @@ public class MockedBusinessLookupData implements IBusiness{
                 "\t\t\"phone\": \"+14157492060\",\n" +
                 "\t\t\"id\": \"good-grub-vending-san-francisco\"\n" +
                 "\t}]\n" +
-                "}";
+                "}"
+        val yelpBusinessWrapper = RetrofitFactory.objectMapper.readValue(json, YelpBusinessWrapper::class.java)
 
-        try {
-            YelpBusinessWrapper yelpBusinessWrapper = RetroService.getObjectMapper().readValue(json, YelpBusinessWrapper.class);
-
-            return Single.just(yelpBusinessWrapper);
-        } catch (IOException e) {
-            return Single.error(e);
-        }
+        return Single.just(yelpBusinessWrapper)
     }
 
-    @Override
-    public Single<BusinessDetails> getBusinessDetails(@Path("id") String businessID) {
-        String json = "{\n" +
+    override fun getBusinessDetails(@Path("id") businessID: String): Single<BusinessDetails> {
+        val json = "{\n" +
                 "\t\"id\": \"gary-danko-san-francisco\",\n" +
                 "\t\"name\": \"Gary Danko\",\n" +
                 "\t\"image_url\": \"https://s3-media4.fl.yelpcdn.com/bphoto/--8oiPVp0AsjoWHqaY1rDQ/o.jpg\",\n" +
@@ -150,13 +141,9 @@ public class MockedBusinessLookupData implements IBusiness{
                 "\t\t\"cross_streets\": \"Hyde St & Larkin St\"\n" +
                 "\t},\n" +
                 "\t\"transactions\": [\"restaurant_reservation\"]\n" +
-                "}";
+                "}"
 
-        try {
-            BusinessDetails businessDetails = RetroService.getObjectMapper().readValue(json, BusinessDetails.class);
-            return Single.just(businessDetails);
-        } catch (IOException e) {
-            return Single.error(e);
-        }
+        val businessDetails = RetrofitFactory.objectMapper.readValue(json, BusinessDetails::class.java)
+        return Single.just<BusinessDetails>(businessDetails)
     }
 }

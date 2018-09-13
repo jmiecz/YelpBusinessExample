@@ -6,6 +6,7 @@ buildscript {
     ext.rxjava_version = '2.1.9'
     ext.rxandroid_version = '2.0.2'
     ext.koin_version = '1.0.0-RC-3'
+    ext.robolectric_version = '3.8'
 
     ext.support_version = '27.1.1'
 
