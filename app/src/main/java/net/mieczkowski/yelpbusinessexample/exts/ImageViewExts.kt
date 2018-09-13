@@ -1,7 +1,8 @@
 package net.mieczkowski.yelpbusinessexample.exts
 
 import android.widget.ImageView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
+
 import net.mieczkowski.yelpbusinessexample.R
 
 /**
@@ -10,7 +11,7 @@ import net.mieczkowski.yelpbusinessexample.R
 fun ImageView.loadUrl(url: String?) {
     url?.let {
         if (it.isNotEmpty())
-            Picasso.with(context)
+            Glide.with(context)
                     .load(it)
                     .into(this)
         else

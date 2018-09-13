@@ -5,13 +5,14 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import kotlinx.android.synthetic.main.activity_main.*
 import net.mieczkowski.yelpbusinessexample.controllers.LocationController
-import net.mieczkowski.yelpbusinessexample.controllers.SearchController
+import net.mieczkowski.yelpbusinessexample.controllers.WelcomeController
 import net.mieczkowski.yelpbusinessexample.interfaces.IToolbar
 
 class MainActivity : AppCompatActivity(), IToolbar {
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity(), IToolbar {
         val rootController: Controller = if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             LocationController()
         } else {
-            SearchController()
+            WelcomeController()
         }
 
         router = Conductor.attachRouter(this, controllerContainer, savedInstanceState)
@@ -43,4 +44,5 @@ class MainActivity : AppCompatActivity(), IToolbar {
         }
     }
 
+    override fun getToolBar(): Toolbar = toolbar
 }

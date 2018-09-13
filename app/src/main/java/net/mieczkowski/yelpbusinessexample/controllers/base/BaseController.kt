@@ -35,7 +35,7 @@ abstract class BaseController(args: Bundle? = null) : RestoreViewOnCreateControl
     }
 
     fun setTitle(title: String?) {
-        iToolbar.supportActionBar.title = title
+        iToolbar.getSupportActionBar()?.title = title ?: ""
     }
 
 }

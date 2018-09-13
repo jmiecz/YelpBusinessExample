@@ -35,5 +35,12 @@ class SearchHistoryAdapter(objects: List<PreviousSearch>, private val previousSe
         previousSearchContract.onPreviousSearchClicked(previousSearch)
     }
 
+    fun addQuery(previousSearch: PreviousSearch){
+        objects.firstOrNull { it.searchTerm == previousSearch.searchTerm }?.let {
+            return
+        }
+
+        addItem(previousSearch, 0)
+    }
 
 }

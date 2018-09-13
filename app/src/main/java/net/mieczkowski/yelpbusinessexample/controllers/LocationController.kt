@@ -12,6 +12,7 @@ import com.bluelinelabs.conductor.RouterTransaction
 import kotlinx.android.synthetic.main.controller_location.view.*
 import net.mieczkowski.yelpbusinessexample.R
 import net.mieczkowski.yelpbusinessexample.controllers.base.BaseController
+import net.mieczkowski.yelpbusinessexample.controllers.search.SearchController
 
 /**
  * Created by Josh Mieczkowski on 10/21/2017.
