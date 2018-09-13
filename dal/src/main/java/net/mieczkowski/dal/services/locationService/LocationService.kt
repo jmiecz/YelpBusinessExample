@@ -6,13 +6,11 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.support.v4.content.ContextCompat
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 
 /**
@@ -22,14 +20,19 @@ class LocationService(context: Context) {
 
     class MissingFineLocationError : Throwable("Missing Coarse Location Permission")
 
-    private val locationClient = LocationServices.getFusedLocationProviderClient(context)
+    private val locationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
 
     private var obsCount = 0
-    private val locationSubject: PublishSubject<Location> = PublishSubject.create()
+    private val locationSubject: BehaviorSubject<Location> = BehaviorSubject.create()
     private var locationRequest = LocationRequest().apply {
         interval = 10000
         fastestInterval = 0
-        priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+        priority = LocationRequest.PRIORITY_LOW_POWER
+    }
+
+    private val defaultLocation = Location("Default").apply {
+        latitude = 39.7392
+        longitude = 104.9903
     }
 
     private var locationCallBack: LocationCallback = object : LocationCallback() {
@@ -39,6 +42,10 @@ class LocationService(context: Context) {
                 locationSubject.onNext(it)
             }
         }
+    }
+
+    init {
+        locationSubject.onNext(defaultLocation)
     }
 
     fun configureLocationSettings(settings: LocationRequest.() -> Unit): LocationService {
@@ -55,7 +62,6 @@ class LocationService(context: Context) {
                         Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             Observable.error(MissingFineLocationError())
-
         } else {
             locationSubject.subscribeOn(Schedulers.io())
                     .doOnSubscribe {

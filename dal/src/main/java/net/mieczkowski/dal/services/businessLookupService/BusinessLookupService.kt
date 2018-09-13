@@ -34,7 +34,7 @@ class BusinessLookupService(private val businessContract: BusinessContract, priv
             businessContract.lookUpBusiness(businessLookupRequest.searchTerm, businessLookupRequest.location.latitude, businessLookupRequest.location.longitude)
                     .map { it.yelpBusinesses }
                     .toFlowable().flatMap { Flowable.fromIterable(it) }
-                    .flatMap { getYelpBusinessWithDetails(it).toFlowable() }
+                    .concatMap { getYelpBusinessWithDetails(it).toFlowable() }
                     .toList().map { oldList ->
                         val toReturn = mutableListOf<YelpBusiness>()
                         toReturn.addAll(oldList)
