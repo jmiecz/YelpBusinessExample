@@ -144,6 +144,15 @@ class SearchContractController(args: Bundle? = null) : BaseController(args), Pre
         myLocation = MyLocation(location.latitude, location.longitude)
     }
 
+    private fun showWelcome(){
+        view?.layoutRefresh?.visibility = View.GONE
+        view?.layoutWelcome?.visibility = View.VISIBLE
+    }
+
+    private fun hideWelcome(){
+        view?.layoutWelcome?.visibility = View.GONE
+    }
+
     private fun setupMenuSearch(menu: Menu) {
         search = menu.findItem(R.id.action_search)
         searchView = search.actionView as SearchView
@@ -154,13 +163,12 @@ class SearchContractController(args: Bundle? = null) : BaseController(args), Pre
         search.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(menuItem: MenuItem): Boolean {
                 view?.layoutRefresh?.visibility = View.VISIBLE
-                view?.layoutWelcome?.visibility = View.GONE
+                hideWelcome()
                 return true
             }
 
             override fun onMenuItemActionCollapse(menuItem: MenuItem): Boolean {
-                view?.layoutRefresh?.visibility = View.GONE
-                view?.layoutWelcome?.visibility = View.VISIBLE
+                showWelcome()
                 return true
             }
         })
