@@ -134,6 +134,8 @@ class SearchController(args: Bundle? = null) : BaseController(args), PreviousSea
 
         if(changeType == ControllerChangeType.POP_EXIT || changeType == ControllerChangeType.PUSH_EXIT){
             iToolbar.getToolBar().removeView(searchViewHolder.view)
+        }else{
+            restoreSearchData()
         }
     }
 
@@ -212,7 +214,7 @@ class SearchController(args: Bundle? = null) : BaseController(args), PreviousSea
             it.isEnabled = true
         }
 
-        searchBusinessAdapter = SearchBusinessAdapter(YelpBusinesss)
+        searchBusinessAdapter = SearchBusinessAdapter(YelpBusinesss, router)
         view?.recyclerView?.adapter = searchBusinessAdapter
 
         view?.requestFocus()

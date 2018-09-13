@@ -1,9 +1,12 @@
 package net.mieczkowski.yelpbusinessexample.recyclerAdapters.searchBusiness
 
 import android.view.ViewGroup
+import com.bluelinelabs.conductor.Router
 import net.mieczkowski.dal.services.businessLookupService.models.YelpBusiness
 
 import net.mieczkowski.yelpbusinessexample.R
+import net.mieczkowski.yelpbusinessexample.controllers.DetailController
+import net.mieczkowski.yelpbusinessexample.exts.show
 import net.mieczkowski.yelpbusinessexample.recyclerAdapters.base.BaseAdapter
 import net.mieczkowski.yelpbusinessexample.recyclerAdapters.base.BaseViewHolder
 
@@ -11,7 +14,7 @@ import net.mieczkowski.yelpbusinessexample.recyclerAdapters.base.BaseViewHolder
  * Created by Josh Mieczkowski on 10/22/2017.
  */
 
-class SearchBusinessAdapter(objects: List<YelpBusiness>) : BaseAdapter<YelpBusiness>(objects) {
+class SearchBusinessAdapter(objects: List<YelpBusiness>, private val router: Router) : BaseAdapter<YelpBusiness>(objects) {
 
     private val EMPTY_VIEW = 0
     private val BUSINESS_VIEW = 1
@@ -35,5 +38,9 @@ class SearchBusinessAdapter(objects: List<YelpBusiness>) : BaseAdapter<YelpBusin
         return if (objects.isEmpty()) 1 else objects.size
     }
 
+    override fun onRowClick(position: Int) {
+        super.onRowClick(position)
 
+        DetailController(objects[position]).show(router)
+    }
 }
